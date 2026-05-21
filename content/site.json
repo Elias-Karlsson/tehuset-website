@@ -5,8 +5,8 @@
     "email": "tehuset@hotmail.com",
     "phone": "",
     "address": {
-      "sv": "Karlskrona, Sverige",
-      "en": "Karlskrona, Sweden"
+      "sv": "Karl XII:s torg 9, Kungsträdgården, Stockholm",
+      "en": "Karl XII:s torg 9, Kungsträdgården, Stockholm"
     },
     "socials": [
       {
@@ -41,8 +41,8 @@
       "en": "Tehuset"
     },
     "intro": {
-      "sv": "Ett färgstarkt café och uteservering i Karlskrona, byggt för långsamma samtal, mat, te och sommarkvällar.",
-      "en": "A colourful café and garden terrace in Karlskrona, built for slow conversations, food, tea and summer evenings."
+      "sv": "Ett färgstarkt café under almarna i Kungsträdgården, med lunch, kaffe, te och utsikt mot slottet och strömmen.",
+      "en": "A colourful café under the elms in Kungsträdgården, serving lunch, coffee and tea with views toward the Royal Palace and the water."
     },
     "images": [
       "/assets/photography/restaurant-1.jpeg",
@@ -57,12 +57,12 @@
         "en": "Food"
       },
       "title": {
-        "sv": "Färger på tallrik",
-        "en": "Colour on the plate"
+        "sv": "Lunch, fika och något kallt i glaset",
+        "en": "Lunch, fika and something cold in the glass"
       },
       "body": {
-        "sv": "Sallader, smörgåsar och små rätter med Tehusets lediga, gröna terrasskänsla.",
-        "en": "Salads, sandwiches and small dishes with Tehuset’s relaxed garden-terrace feeling."
+        "sv": "Från matiga smörgåsar och sallader till fisk, kaffe och söta saker. En enkel meny för parkdagar, lunchpauser och kvällar som dröjer sig kvar.",
+        "en": "From open sandwiches and salads to fish, coffee and sweets. A relaxed menu for park days, lunch breaks and evenings that linger."
       }
     },
     "restaurant": {
@@ -71,12 +71,12 @@
         "en": "The place"
       },
       "title": {
-        "sv": "En trädgård mitt i staden",
-        "en": "A garden in the city"
+        "sv": "Kungsträdgårdens röda paus",
+        "en": "A red pause in Kungsträdgården"
       },
       "body": {
-        "sv": "Uteserveringen, textilierna, kaffet och ljusslingorna är en del av upplevelsen.",
-        "en": "The terrace, textiles, coffee and evening lights are part of the experience."
+        "sv": "Tehuset ligger i utkanten av Kungsan, nära vattnet, kyrkan och citypulsen. Här får Stockholm bli lite mjukare för en stund.",
+        "en": "Tehuset sits at the edge of Kungsträdgården, close to the water, the church and the city pulse. For a while, Stockholm gets softer."
       }
     },
     "merch": {
@@ -85,8 +85,8 @@
         "en": "Merch"
       },
       "body": {
-        "sv": "Första Tehuset-tröjan. Betala enkelt med Swish.",
-        "en": "The first Tehuset t-shirt. Pay easily with Swish."
+        "sv": "Första Tehuset-tröjan. Röd, rak och gjord för folk som hellre sitter ute lite längre.",
+        "en": "The first Tehuset t-shirt. Red, direct and made for people who would rather stay outside a little longer."
       }
     },
     "reservations": {
@@ -95,8 +95,8 @@
         "en": "Large groups"
       },
       "body": {
-        "sv": "Vi har inget vanligt bokningssystem. För större grupper, mejla oss på tehuset@hotmail.com så återkommer vi.",
-        "en": "We do not use a regular booking system. For larger groups, email us at tehuset@hotmail.com and we will get back to you."
+        "sv": "Vi tar inte vanliga bordsbokningar här. För större grupper eller förfrågningar, mejla tehuset@hotmail.com så hittar vi en lösning.",
+        "en": "We do not take regular table bookings here. For larger groups or enquiries, email tehuset@hotmail.com and we will find a way."
       }
     },
     "instagram": {
@@ -105,14 +105,14 @@
         "en": "Follow Tehuset"
       },
       "body": {
-        "sv": "Senaste från Instagram.",
-        "en": "Latest from Instagram."
+        "sv": "Bilder, öppettider och ögonblick från Kungsan.",
+        "en": "Photos, opening notes and small moments from Kungsan."
       }
     },
     "footer": {
       "body": {
-        "sv": "Tehuset, Karlskrona. Mat, kaffe, te och sommarens uteservering.",
-        "en": "Tehuset, Karlskrona. Food, coffee, tea and a summer terrace."
+        "sv": "Tehuset i Kungsträdgården. Lunch, kaffe, te och uteservering under almarna.",
+        "en": "Tehuset in Kungsträdgården. Lunch, coffee, tea and outdoor seating under the elms."
       }
     }
   }

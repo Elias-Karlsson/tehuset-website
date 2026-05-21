@@ -23,19 +23,19 @@ export function TehusetHome({ site, photos, menuSv, menuEn, products }: { site: 
 
       <section className="hero monte-hero" id="top">
         <div className="hero__side hero__side--left">{lang === 'sv' ? 'ÖPPET FÖR MAT, KAFFE & TE' : 'FOOD, COFFEE & TEA'}</div>
-        <div className="hero__side hero__side--right">KARLSKRONA</div>
+        <div className="hero__side hero__side--right">STOCKHOLM</div>
         <div className="hero__centerpiece">
-          <svg className="hero__arc" viewBox="0 0 620 280" aria-hidden="true">
+          <img className="hero__logo" src="/assets/brand/tehuset-logo-white.png" alt="Tehuset" />
+          <svg className="hero__arc" viewBox="0 0 620 170" aria-hidden="true">
             <defs>
-              <path id="heroArc" d="M 88 178 C 190 60, 430 60, 532 178" />
+              <path id="heroArc" d="M 82 116 C 194 32, 426 32, 538 116" />
             </defs>
             <text>
               <textPath href="#heroArc" startOffset="50%" textAnchor="middle">
-                {lang === 'sv' ? 'DÄR TE MÖTER TERRASSEN DÄR TE MÖTER' : 'WHERE TEA MEETS THE TERRACE WHERE TEA MEETS'}
+                {lang === 'sv' ? 'UNDER ALMARNA I KUNGSTRÄDGÅRDEN' : 'UNDER THE ELMS IN KUNGSTRÄDGÅRDEN'}
               </textPath>
             </text>
           </svg>
-          <img className="hero__logo" src="/assets/brand/tehuset-logo-white.png" alt="Tehuset" />
           <p>{site.hero.intro[lang]}</p>
         </div>
         <div className="hero__scroll-note">{lang === 'sv' ? 'Fortsätt scrolla för det goda.' : 'Keep scrolling for the good stuff.'}</div>
