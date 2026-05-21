@@ -1,0 +1,19 @@
+{
+  "products": [
+    {
+      "id": "tehuset-shirt",
+      "sku": "TEHUSET-SHIRT-001",
+      "name": {
+        "sv": "Tehuset t-shirt",
+        "en": "Tehuset t-shirt"
+      },
+      "description": {
+        "sv": "Brun t-shirt med Tehusets terrassmotiv på ryggen.",
+        "en": "Brown t-shirt with the Tehuset terrace illustration on the back."
+      },
+      "priceSek": 350,
+      "image": "/assets/merch/tehuset-shirt.jpg",
+      "active": true
+    }
+  ]
+}
