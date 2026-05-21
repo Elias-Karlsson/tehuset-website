@@ -12,6 +12,7 @@ export function ImageFlow({ id, eyebrow, title, body, images, lang, variant }: {
         {images.map((src, index) => (
           <figure className="image-flow__card" key={src} style={{ ['--delay' as string]: `${index * 120}ms` }}>
             <img src={src} alt="Tehuset" loading="lazy" />
+            <figcaption>{variant === 'food' ? 'TEHUSET FOOD' : 'TEHUSET TERRACE'}</figcaption>
           </figure>
         ))}
       </div>
