@@ -53,11 +53,31 @@ export function TehusetHome({ site, photos, menuSv, menuEn, products }: { site: 
       </section>
 
       <section className="intro-copy" id="about">
-        <p>{site.hero.intro[lang]}</p>
+        <p>{site.sections.about?.body[lang] ?? site.hero.intro[lang]}</p>
       </section>
 
       <ImageFlow id="food" variant="food" lang={lang} images={photos.food} eyebrow={site.sections.food.eyebrow!} title={site.sections.food.title!} body={site.sections.food.body} />
       <ImageFlow id="history" variant="restaurant" lang={lang} images={photos.restaurant} eyebrow={site.sections.restaurant.eyebrow!} title={site.sections.restaurant.title!} body={site.sections.restaurant.body} />
+      {site.history ? (
+        <section className="history-archive" aria-labelledby="history-archive-title">
+          <div className="history-archive__copy">
+            <p className="eyebrow">{site.history.eyebrow[lang]}</p>
+            <h2 id="history-archive-title">{site.history.title[lang]}</h2>
+            <p>{site.history.body[lang]}</p>
+          </div>
+          <div className="history-archive__grid">
+            {site.history.images.map((image) => (
+              <figure className="history-archive__card" key={image.src}>
+                <img src={image.src} alt={image.caption[lang]} loading="lazy" />
+                <figcaption>
+                  <span>{image.caption[lang]}</span>
+                  <small>{image.credit}</small>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+      ) : null}
       <MenuPanel menu={menu} />
 
       <section id="merch" className="section-block section-block--pink">

@@ -8,6 +8,7 @@ export type SiteContent = {
   navigation: { key: string; sv: string; en: string; href: string }[];
   hero: { title: Localized; intro: Localized; images: string[] };
   sections: Record<string, { title?: Localized; eyebrow?: Localized; body: Localized }>;
+  history?: { eyebrow: Localized; title: Localized; body: Localized; images: { src: string; caption: Localized; credit: string }[] };
 };
 
 export type MenuContent = {
