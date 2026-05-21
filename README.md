@@ -11,7 +11,7 @@ Before code was written, the Drive references were catalogued and inspected. The
 - all photography and merch images copied into `public/assets/`.
 - all three DIN font files copied into `public/assets/fonts/`.
 
-Note: the Drive folder did not contain separate `menu_sv_reference.png` or `menu_en_reference.png` files. The menu PDFs were rendered and used as the visual menu references. The PDF text did not include prices, so menu price fields exist in TinaCMS but are blank until the client supplies prices.
+Menu files were present in the references folder as `menu swedish.pdf` and `menu english.pdf`; those PDFs were rendered and used as the visual menu references. The originally requested separate PNG filenames (`menu_sv_reference.png` / `menu_en_reference.png`) were not present. The PDF text did not include prices, so menu price fields exist in TinaCMS but are blank until the client supplies prices.
 
 ## Local development
 
