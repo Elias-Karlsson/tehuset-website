@@ -1,5 +1,5 @@
  'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Lang, MenuContent, Product, SiteContent } from './types';
 import { LanguageToggle } from './LanguageToggle';
 import { ImageFlow } from './ImageFlow';
@@ -8,11 +8,19 @@ import { MerchCheckout } from './MerchCheckout';
 
 export function TehusetHome({ site, photos, menuSv, menuEn, products }: { site: SiteContent; photos: { food: string[]; restaurant: string[] }; menuSv: MenuContent; menuEn: MenuContent; products: Product[] }) {
   const [lang, setLang] = useState<Lang>('sv');
+  const [isScrolled, setIsScrolled] = useState(false);
   const menu = lang === 'sv' ? menuSv : menuEn;
+
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 120);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
     <main>
-      <header className="site-header">
+      <header className={`site-header ${isScrolled ? 'site-header--scrolled' : ''}`}>
         <a className="site-header__left" href="#menu">{lang === 'sv' ? 'MENY' : 'MENU'}</a>
         <a className="site-header__mark" href="#top" aria-label="Tehuset home">tehuset</a>
         <div className="site-header__right">
