@@ -102,6 +102,16 @@ ORDER_EMAIL_FROM=user@example.com
 
 The recipient is editable in TinaCMS as `adminEmail` in `content/site.json`.
 
+## Public static preview
+
+A browser-viewable static preview is published with GitHub Pages:
+
+- `https://elias-karlsson.github.io/tehuset-website/`
+
+This preview renders the public site sections from the current content and assets. Dynamic production-only features are not active on GitHub Pages: TinaCMS editing, Swish payment API routes, callbacks, SMTP/order emails, and any server-side integrations still require the self-hosted Next.js/Docker deployment below.
+
+The GitHub Pages artifact is built from `GITHUB_PAGES=true npm run build`, then published from the generated `out/` folder to the `gh-pages` branch.
+
 ## Docker deployment
 
 ```bash

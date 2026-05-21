@@ -6,6 +6,7 @@
     "dev": "tinacms dev -c \"next dev\"",
     "dev:next": "next dev",
     "build": "next build",
+    "build:pages": "GITHUB_PAGES=true next build && node scripts/patch-github-pages-assets.mjs",
     "start": "next start",
     "lint": "next lint",
     "tina:build": "tinacms build",
