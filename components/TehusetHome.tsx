@@ -6,9 +6,11 @@ import { MenuPanel } from './MenuPanel';
 import { MerchCheckout } from './MerchCheckout';
 
 const restaurantShowcaseImages = [
-  '/assets/photography/restaurant-1.jpeg',
+  '/assets/photography/restaurant-3.jpeg',
   '/assets/photography/restaurant-4.jpeg',
   '/assets/photography/restaurant-5.jpeg',
+  '/assets/photography/restaurant-6.jpeg',
+  '/assets/photography/restaurant-7.jpeg',
   '/assets/photography/restaurant-8.jpeg',
 ];
 
@@ -20,15 +22,22 @@ const foodShowcaseImages = [
 ];
 
 function ShowcaseSection({ id, images, imageSide, illustration, illustrationAlt, text }: { id: string; images: string[]; imageSide: 'left' | 'right'; illustration: string; illustrationAlt: string; text: string }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const showPrevious = () => setActiveIndex((current) => (current - 1 + images.length) % images.length);
+  const showNext = () => setActiveIndex((current) => (current + 1) % images.length);
+  const orderedImages = images.map((_, offset) => images[(activeIndex + offset) % images.length]);
+
   return (
     <section id={id} className={`showcase showcase--images-${imageSide}`}>
       <div className="showcase__deck" aria-label={`${id} images`}>
-        {images.map((src, index) => (
-          <img key={src} src={src} alt="Tehuset" loading="lazy" style={{ ['--card-index' as string]: index }} />
-        ))}
-        <div className="showcase__controls" aria-hidden="true">
-          <span>←</span>
-          <span>→</span>
+        <button className="showcase__image-button" type="button" onClick={showNext} aria-label="Show next image">
+          {orderedImages.map((src, index) => (
+            <img key={`${src}-${activeIndex}`} src={src} alt="Tehuset" loading={index === 0 ? 'eager' : 'lazy'} style={{ ['--card-index' as string]: index }} />
+          ))}
+        </button>
+        <div className="showcase__controls" aria-label="Image controls">
+          <button type="button" onClick={showPrevious} aria-label="Show previous image">←</button>
+          <button type="button" onClick={showNext} aria-label="Show next image">→</button>
         </div>
       </div>
       <div className="showcase__copy">
@@ -112,8 +121,8 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
       <ShowcaseSection
         id="history"
         images={restaurantShowcaseImages}
-        imageSide="left"
-        illustration="/assets/illustrations/elms-graphic.svg"
+        imageSide="right"
+        illustration="/assets/illustrations/elms-graphic2.png"
         illustrationAlt="Elms graphic"
         text="You'll find us tucked under the elms in Kungsträdgården, Stockholm's living room. Come for a warm sandwich, a glass of wine, or a soothing moment in the middle of the city. We’ve been keeping the kettle warm for a while."
       />
@@ -121,8 +130,8 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
       <ShowcaseSection
         id="food"
         images={foodShowcaseImages}
-        imageSide="right"
-        illustration="/assets/illustrations/castle-graphic.svg"
+        imageSide="left"
+        illustration="/assets/illustrations/castle-graphic2.png"
         illustrationAlt="Castle graphic"
         text="Our fish soup is crafted by legendary fisherman Jack Anthony Smith, a gem he brought from Barbados. Inspired by life by the swells, it’s the sort of dish that travels. From island waters to Stockholm elms, with plenty of tastings in between."
       />
