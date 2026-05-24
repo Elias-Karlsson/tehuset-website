@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" role="img" aria-labelledby="title desc">
+  <title id="title">Elms graphic</title>
+  <desc id="desc">Line drawing of elm trees and outdoor tables.</desc>
+  <g fill="none" stroke="#C42026" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M75 198c7-38 10-78 8-121"/>
+    <path d="M238 198c-7-38-10-78-8-121"/>
+    <path d="M86 88c-29-2-48-18-45-39 3-24 31-34 52-19 13-25 54-23 63 6 17-16 54-7 58 19 25-10 54 6 55 31 1 25-30 39-57 26-20 21-63 20-82-2-15 10-31 13-44 8"/>
+    <path d="M75 116c-15 20-33 32-54 37"/>
+    <path d="M230 116c18 20 40 32 68 37"/>
+    <path d="M122 199h80"/>
+    <path d="M160 159v40"/>
+    <path d="M128 159h64"/>
+    <path d="M103 218h114"/>
+    <path d="M64 216h-34m260 0h-34"/>
+  </g>
+</svg>

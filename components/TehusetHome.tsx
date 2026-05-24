@@ -2,11 +2,44 @@
 import { useEffect, useState } from 'react';
 import type { Lang, MenuContent, Product, SiteContent } from './types';
 import { LanguageToggle } from './LanguageToggle';
-import { ImageFlow } from './ImageFlow';
 import { MenuPanel } from './MenuPanel';
 import { MerchCheckout } from './MerchCheckout';
 
-export function TehusetHome({ site, photos, menuSv, menuEn, products }: { site: SiteContent; photos: { food: string[]; restaurant: string[] }; menuSv: MenuContent; menuEn: MenuContent; products: Product[] }) {
+const restaurantShowcaseImages = [
+  '/assets/photography/restaurant-1.jpeg',
+  '/assets/photography/restaurant-4.jpeg',
+  '/assets/photography/restaurant-5.jpeg',
+  '/assets/photography/restaurant-8.jpeg',
+];
+
+const foodShowcaseImages = [
+  '/assets/photography/food1.jpeg',
+  '/assets/photography/food2.jpeg',
+  '/assets/photography/food3.jpeg',
+  '/assets/photography/food4.jpeg',
+];
+
+function ShowcaseSection({ id, images, imageSide, illustration, illustrationAlt, text }: { id: string; images: string[]; imageSide: 'left' | 'right'; illustration: string; illustrationAlt: string; text: string }) {
+  return (
+    <section id={id} className={`showcase showcase--images-${imageSide}`}>
+      <div className="showcase__deck" aria-label={`${id} images`}>
+        {images.map((src, index) => (
+          <img key={src} src={src} alt="Tehuset" loading="lazy" style={{ ['--card-index' as string]: index }} />
+        ))}
+        <div className="showcase__controls" aria-hidden="true">
+          <span>←</span>
+          <span>→</span>
+        </div>
+      </div>
+      <div className="showcase__copy">
+        <img className="showcase__graphic" src={illustration} alt={illustrationAlt} loading="lazy" />
+        <p>{text}</p>
+      </div>
+    </section>
+  );
+}
+
+export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteContent; photos: { food: string[]; restaurant: string[] }; menuSv: MenuContent; menuEn: MenuContent; products: Product[] }) {
   const [lang, setLang] = useState<Lang>('sv');
   const [weather, setWeather] = useState('väder hämtas');
   const menu = lang === 'sv' ? menuSv : menuEn;
@@ -76,28 +109,24 @@ export function TehusetHome({ site, photos, menuSv, menuEn, products }: { site: 
         <p>{site.sections.about?.body[lang] ?? site.hero.intro[lang]}</p>
       </section>
 
-      <ImageFlow id="food" variant="food" lang={lang} images={photos.food} eyebrow={site.sections.food.eyebrow!} title={site.sections.food.title!} body={site.sections.food.body} />
-      <ImageFlow id="history" variant="restaurant" lang={lang} images={photos.restaurant} eyebrow={site.sections.restaurant.eyebrow!} title={site.sections.restaurant.title!} body={site.sections.restaurant.body} />
-      {site.history ? (
-        <section className="history-archive" aria-labelledby="history-archive-title">
-          <div className="history-archive__copy">
-            <p className="eyebrow">{site.history.eyebrow[lang]}</p>
-            <h2 id="history-archive-title">{site.history.title[lang]}</h2>
-            <p>{site.history.body[lang]}</p>
-          </div>
-          <div className="history-archive__grid">
-            {site.history.images.map((image) => (
-              <figure className="history-archive__card" key={image.src}>
-                <img src={image.src} alt={image.caption[lang]} loading="lazy" />
-                <figcaption>
-                  <span>{image.caption[lang]}</span>
-                  <small>{image.credit}</small>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </section>
-      ) : null}
+      <ShowcaseSection
+        id="history"
+        images={restaurantShowcaseImages}
+        imageSide="left"
+        illustration="/assets/illustrations/elms-graphic.svg"
+        illustrationAlt="Elms graphic"
+        text="You'll find us tucked under the elms in Kungsträdgården, Stockholm's living room. Come for a warm sandwich, a glass of wine, or a soothing moment in the middle of the city. We’ve been keeping the kettle warm for a while."
+      />
+
+      <ShowcaseSection
+        id="food"
+        images={foodShowcaseImages}
+        imageSide="right"
+        illustration="/assets/illustrations/castle-graphic.svg"
+        illustrationAlt="Castle graphic"
+        text="Our fish soup is crafted by legendary fisherman Jack Anthony Smith, a gem he brought from Barbados. Inspired by life by the swells, it’s the sort of dish that travels. From island waters to Stockholm elms, with plenty of tastings in between."
+      />
+
       <MenuPanel menu={menu} />
 
       <section id="merch" className="section-block section-block--pink">
