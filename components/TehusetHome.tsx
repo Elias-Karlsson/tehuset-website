@@ -24,13 +24,20 @@ const foodShowcaseImages = [
 function ShowcaseSection({ id, images, imageSide, motionDirection, illustration, illustrationAlt, text, imageLabel, controlsLabel, previousImageLabel, nextImageLabel }: { id: string; images: string[]; imageSide: 'left' | 'right'; motionDirection: 'from-left' | 'from-right'; illustration: string; illustrationAlt: string; text: string; imageLabel: string; controlsLabel: string; previousImageLabel: string; nextImageLabel: string }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [trackOffsets, setTrackOffsets] = useState([0, 1, 2]);
-  const [railShift, setRailShift] = useState<'rest' | 'left'>('rest');
+  const [railShiftPx, setRailShiftPx] = useState(0);
   const [isSliding, setIsSliding] = useState(false);
+  const railRef = useRef<HTMLSpanElement | null>(null);
   const slideTimer = useRef<number | null>(null);
   const slideDurationMs = 980;
   const wrapIndex = (index: number) => (index + images.length) % images.length;
   const trackImages = trackOffsets.map((offset) => images[wrapIndex(activeIndex + offset)]);
-  const railShiftValue = railShift === 'left' ? 'calc(-1 * ((100% - var(--showcase-gap) - var(--showcase-gap)) / 3 + var(--showcase-gap)))' : '0px';
+  const measureSlideDistance = () => {
+    const rail = railRef.current;
+    const firstImage = rail?.querySelector('img');
+    if (!rail || !firstImage) return 0;
+    const gap = Number.parseFloat(window.getComputedStyle(rail).columnGap || '0');
+    return firstImage.getBoundingClientRect().width + gap;
+  };
 
   useEffect(() => () => {
     if (slideTimer.current) window.clearTimeout(slideTimer.current);
@@ -40,13 +47,16 @@ function ShowcaseSection({ id, images, imageSide, motionDirection, illustration,
     if (isSliding) return;
     const enteringFromRight = enteringFrom === 'right';
     setTrackOffsets(enteringFromRight ? [0, 1, 2, 3] : [-1, 0, 1, 2]);
-    setRailShift(enteringFromRight ? 'rest' : 'left');
+    setRailShiftPx(0);
     setIsSliding(false);
 
     window.requestAnimationFrame(() => {
+      const distance = measureSlideDistance();
+      setRailShiftPx(enteringFromRight ? 0 : -distance);
+
       window.requestAnimationFrame(() => {
         setIsSliding(true);
-        setRailShift(enteringFromRight ? 'left' : 'rest');
+        setRailShiftPx(enteringFromRight ? -distance : 0);
       });
     });
 
@@ -54,7 +64,7 @@ function ShowcaseSection({ id, images, imageSide, motionDirection, illustration,
       setActiveIndex((current) => wrapIndex(current + (enteringFromRight ? 1 : -1)));
       setIsSliding(false);
       setTrackOffsets([0, 1, 2]);
-      setRailShift('rest');
+      setRailShiftPx(0);
     }, slideDurationMs);
   };
 
@@ -65,7 +75,7 @@ function ShowcaseSection({ id, images, imageSide, motionDirection, illustration,
     <section id={id} className={`showcase showcase--images-${imageSide} showcase--motion-${motionDirection}`}>
       <div className="showcase__deck" aria-label={imageLabel}>
         <button className="showcase__image-button" type="button" onClick={showNext} aria-label={nextImageLabel}>
-          <span className={`showcase__rail${isSliding ? ' showcase__rail--moving' : ''}`} style={{ ['--rail-shift' as string]: railShiftValue }}>
+          <span ref={railRef} className={`showcase__rail${isSliding ? ' showcase__rail--moving' : ''}`} style={{ transform: `translate3d(${railShiftPx}px, 0, 0)` }}>
             {trackImages.map((src, index) => (
               <img key={`${src}-${index}-${activeIndex}`} src={src} alt="Tehuset" loading={index <= 2 ? 'eager' : 'lazy'} />
             ))}
