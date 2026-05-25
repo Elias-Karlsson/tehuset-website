@@ -1,5 +1,5 @@
  'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { Lang, MenuContent, Product, SiteContent } from './types';
 import { LanguageToggle } from './LanguageToggle';
 import { MenuPanel } from './MenuPanel';
@@ -21,20 +21,55 @@ const foodShowcaseImages = [
   '/assets/photography/food4.jpeg',
 ];
 
-function ShowcaseSection({ id, images, imageSide, illustration, illustrationAlt, text, imageLabel, controlsLabel, previousImageLabel, nextImageLabel }: { id: string; images: string[]; imageSide: 'left' | 'right'; illustration: string; illustrationAlt: string; text: string; imageLabel: string; controlsLabel: string; previousImageLabel: string; nextImageLabel: string }) {
+function ShowcaseSection({ id, images, imageSide, motionDirection, illustration, illustrationAlt, text, imageLabel, controlsLabel, previousImageLabel, nextImageLabel }: { id: string; images: string[]; imageSide: 'left' | 'right'; motionDirection: 'from-left' | 'from-right'; illustration: string; illustrationAlt: string; text: string; imageLabel: string; controlsLabel: string; previousImageLabel: string; nextImageLabel: string }) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const showPrevious = () => setActiveIndex((current) => (current - 1 + images.length) % images.length);
-  const showNext = () => setActiveIndex((current) => (current + 1) % images.length);
-  const orderedImages = images.map((_, offset) => images[(activeIndex + offset) % images.length]);
-  const visibleImages = orderedImages.slice(0, 3);
+  const [trackOffsets, setTrackOffsets] = useState([0, 1, 2]);
+  const [railShift, setRailShift] = useState<'rest' | 'left'>('rest');
+  const [isSliding, setIsSliding] = useState(false);
+  const slideTimer = useRef<number | null>(null);
+  const slideDurationMs = 980;
+  const wrapIndex = (index: number) => (index + images.length) % images.length;
+  const trackImages = trackOffsets.map((offset) => images[wrapIndex(activeIndex + offset)]);
+  const railShiftValue = railShift === 'left' ? 'calc(-1 * ((100% - var(--showcase-gap) - var(--showcase-gap)) / 3 + var(--showcase-gap)))' : '0px';
+
+  useEffect(() => () => {
+    if (slideTimer.current) window.clearTimeout(slideTimer.current);
+  }, []);
+
+  const startSlide = (enteringFrom: 'left' | 'right') => {
+    if (isSliding) return;
+    const enteringFromRight = enteringFrom === 'right';
+    setTrackOffsets(enteringFromRight ? [0, 1, 2, 3] : [-1, 0, 1, 2]);
+    setRailShift(enteringFromRight ? 'rest' : 'left');
+    setIsSliding(false);
+
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        setIsSliding(true);
+        setRailShift(enteringFromRight ? 'left' : 'rest');
+      });
+    });
+
+    slideTimer.current = window.setTimeout(() => {
+      setActiveIndex((current) => wrapIndex(current + (enteringFromRight ? 1 : -1)));
+      setIsSliding(false);
+      setTrackOffsets([0, 1, 2]);
+      setRailShift('rest');
+    }, slideDurationMs);
+  };
+
+  const showNext = () => startSlide(motionDirection === 'from-right' ? 'right' : 'left');
+  const showPrevious = () => startSlide(motionDirection === 'from-right' ? 'left' : 'right');
 
   return (
-    <section id={id} className={`showcase showcase--images-${imageSide} showcase--enter-${imageSide}`}>
+    <section id={id} className={`showcase showcase--images-${imageSide} showcase--motion-${motionDirection}`}>
       <div className="showcase__deck" aria-label={imageLabel}>
         <button className="showcase__image-button" type="button" onClick={showNext} aria-label={nextImageLabel}>
-          {visibleImages.map((src, index) => (
-            <img key={`${src}-${activeIndex}`} src={src} alt="Tehuset" loading={index === 0 ? 'eager' : 'lazy'} style={{ ['--card-index' as string]: index }} />
-          ))}
+          <span className={`showcase__rail${isSliding ? ' showcase__rail--moving' : ''}`} style={{ ['--rail-shift' as string]: railShiftValue }}>
+            {trackImages.map((src, index) => (
+              <img key={`${src}-${index}-${activeIndex}`} src={src} alt="Tehuset" loading={index <= 2 ? 'eager' : 'lazy'} />
+            ))}
+          </span>
         </button>
         <div className="showcase__controls" aria-label={controlsLabel}>
           <button type="button" onClick={showPrevious} aria-label={previousImageLabel}>←</button>
@@ -226,6 +261,7 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
         id="history"
         images={restaurantShowcaseImages}
         imageSide="right"
+        motionDirection="from-left"
         illustration="/assets/illustrations/elms-graphic2.png"
         illustrationAlt={ui.elmsAlt}
         text={ui.historyCopy}
@@ -239,6 +275,7 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
         id="food"
         images={foodShowcaseImages}
         imageSide="left"
+        motionDirection="from-right"
         illustration="/assets/illustrations/castle-graphic2.png"
         illustrationAlt={ui.castleAlt}
         text={ui.foodCopy}
