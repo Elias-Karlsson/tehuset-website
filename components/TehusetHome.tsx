@@ -182,7 +182,7 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
         </div>
 
         <div className="footer__mark" aria-hidden="true">
-          <img src="/assets/illustrations/strommen-graphic.png" alt="" />
+          <img src="/assets/illustrations/strommen-graphic2-white.png" alt="" />
         </div>
 
         <div className="footer__bottom">
