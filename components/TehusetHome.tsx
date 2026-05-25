@@ -26,12 +26,13 @@ function ShowcaseSection({ id, images, imageSide, illustration, illustrationAlt,
   const showPrevious = () => setActiveIndex((current) => (current - 1 + images.length) % images.length);
   const showNext = () => setActiveIndex((current) => (current + 1) % images.length);
   const orderedImages = images.map((_, offset) => images[(activeIndex + offset) % images.length]);
+  const visibleImages = orderedImages.slice(0, 3);
 
   return (
-    <section id={id} className={`showcase showcase--images-${imageSide}`}>
+    <section id={id} className={`showcase showcase--images-${imageSide} showcase--enter-${imageSide}`}>
       <div className="showcase__deck" aria-label={imageLabel}>
         <button className="showcase__image-button" type="button" onClick={showNext} aria-label={nextImageLabel}>
-          {orderedImages.map((src, index) => (
+          {visibleImages.map((src, index) => (
             <img key={`${src}-${activeIndex}`} src={src} alt="Tehuset" loading={index === 0 ? 'eager' : 'lazy'} style={{ ['--card-index' as string]: index }} />
           ))}
         </button>
@@ -85,7 +86,7 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
       castleAlt: 'Slottsgrafik',
       historyCopy: 'Du hittar oss under almarna i Kungsträdgården, Stockholms vardagsrum. Kom för en varm smörgås, ett glas vin eller en lugn stund mitt i staden. Vi har hållit tekitteln varm ett tag.',
       foodCopy: 'Vår fisksoppa är skapad av den legendariske fiskaren Jack Anthony Smith, en pärla han tog med sig från Barbados. Inspirerad av livet vid vågorna, en rätt som har rest hit, från övatten till Stockholms almar, med många provsmakningar på vägen.',
-      shopEyebrow: 'TEHUSET BUTIK',
+      shopEyebrow: 'TEHUSET MERCH',
       instagramEyebrow: 'INSTAGRAM',
       openingHours: 'Öppettider',
       everyDay: 'Alla dagar',
@@ -111,7 +112,7 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
       castleAlt: 'Castle graphic',
       historyCopy: 'You’ll find us tucked under the elms in Kungsträdgården, Stockholm’s living room. Come for a warm sandwich, a glass of wine, or a soothing moment in the middle of the city. We’ve been keeping the kettle warm for a while.',
       foodCopy: 'Our fish soup is crafted by legendary fisherman Jack Anthony Smith, a gem he brought from Barbados. Inspired by life by the swells, it’s the sort of dish that travels. From island waters to Stockholm elms, with plenty of tastings in between.',
-      shopEyebrow: 'TEHUSET SHOP',
+      shopEyebrow: 'TEHUSET MERCH',
       instagramEyebrow: 'INSTAGRAM',
       openingHours: 'Opening Hours',
       everyDay: 'Every day',
@@ -270,7 +271,7 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
           <section className="footer__column" aria-labelledby="footer-contact-title">
             <h2 id="footer-contact-title">{ui.contact}</h2>
             <div className="footer__contact">
-              <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+              <a href={`mailto:${site.contact.email}`}>{site.contact.email.toUpperCase()}</a>
               <a className="footer__instagram" href="https://www.instagram.com/tehuset/" aria-label="Tehuset Instagram" target="_blank" rel="noreferrer" />
             </div>
           </section>

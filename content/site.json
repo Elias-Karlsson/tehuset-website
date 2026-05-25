@@ -91,12 +91,12 @@
     },
     "merch": {
       "title": {
-        "sv": "Butik",
+        "sv": "Merch",
         "en": "Merch"
       },
       "body": {
-        "sv": "Första Tehuset-tröjan. Röd, rak och gjord för folk som hellre sitter ute lite längre.",
-        "en": "The first Tehuset t-shirt. Red, direct and made for people who would rather stay outside a little longer."
+        "sv": "Första T-shirt. Röd, rak och gjord för folk som hellre sitter ute lite längre.",
+        "en": "The first T-shirt. Red, direct and made for people who would rather stay outside a little longer."
       }
     },
     "instagram": {
