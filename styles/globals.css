@@ -63,18 +63,18 @@ img { max-width: 100%; display: block; }
 .showcase--images-right { grid-template-columns: minmax(300px, .82fr) minmax(420px, 1.18fr); }
 .showcase--images-right .showcase__deck { order: 2; justify-self: end; margin-right: calc(-1 * clamp(34px, 7vw, 126px)); }
 .showcase--images-right .showcase__copy { order: 1; }
-.showcase__deck { position: relative; display: grid; gap: clamp(16px, 2vw, 26px); width: min(760px, 58vw); max-width: none; }
-.showcase__image-button { --showcase-gap: clamp(22px, 2.5vw, 44px); display: block; overflow: visible; width: 100%; margin: 0; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.showcase__deck { position: relative; display: block; width: min(874px, 66.7vw); max-width: none; padding-bottom: clamp(56px, 5vw, 70px); }
+.showcase__image-button { --showcase-gap: clamp(22px, 2.5vw, 44px); display: block; overflow: visible; width: 100%; min-width: 0; margin: 0; padding: 0; border: 0; background: transparent; cursor: pointer; }
 .showcase--images-left .showcase__image-button { clip-path: inset(0 0 0 -120vw); }
 .showcase--images-right .showcase__image-button { clip-path: inset(0 -120vw 0 0); }
 .showcase__rail { display: flex; gap: var(--showcase-gap); align-items: end; width: max-content; will-change: transform; }
 .showcase__rail--moving { transition: transform 980ms cubic-bezier(.16, .84, .24, 1); }
-.showcase__deck img { width: auto; height: clamp(210px, 27vw, 350px); max-width: none; object-fit: contain; object-position: center; border: 0; border-radius: 0; background: transparent; box-shadow: none; flex: 0 0 auto; }
-.showcase__controls { display: flex; justify-content: center; gap: 12px; color: var(--color-accent); margin-top: clamp(8px, 1.4vw, 18px); }
+.showcase__deck img { width: auto; height: clamp(242px, 31vw, 403px); max-width: none; object-fit: contain; object-position: center; border: 0; border-radius: 0; background: transparent; box-shadow: none; flex: 0 0 auto; }
+.showcase__controls { position: absolute; left: 50%; bottom: 0; display: flex; justify-content: center; width: fit-content; gap: 12px; color: var(--color-accent); transform: translateX(-50%); }
 .showcase__controls button { display: grid; place-items: center; width: 39px; height: 39px; padding: 0; border: 2px solid currentColor; border-radius: 999px; background: transparent; color: inherit; font: 700 1.25rem var(--font-din), sans-serif; line-height: 1; cursor: pointer; }
-.showcase__copy { display: grid; justify-items: center; text-align: center; align-content: center; gap: clamp(26px, 3.2vw, 44px); }
-.showcase__graphic { width: min(315px, 45vw); max-height: 285px; object-fit: contain; }
-.showcase__copy p { max-width: 460px; margin: 0; color: var(--color-accent); font-weight: 700; font-size: clamp(1.02rem, 1.38vw, 1.34rem); line-height: 1.16; letter-spacing: .03em; text-transform: uppercase; }
+.showcase__copy { display: grid; justify-items: center; text-align: center; align-content: center; gap: clamp(30px, 3.7vw, 51px); }
+.showcase__graphic { width: min(362px, 51.75vw); max-height: 328px; object-fit: contain; }
+.showcase__copy p { max-width: 529px; margin: 0; color: var(--color-accent); font-weight: 700; font-size: clamp(1.17rem, 1.59vw, 1.54rem); line-height: 1.12; letter-spacing: .03em; text-transform: uppercase; }
 
 .eyebrow { color: var(--color-accent); font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
 .image-flow { min-height: 100svh; padding: clamp(76px, 10vw, 140px) 0; overflow: clip; background: var(--color-bg); }
@@ -173,7 +173,7 @@ input { width: 100%; border: 2px solid var(--color-text); border-radius: 999px; 
   .showcase--images-right .showcase__deck, .showcase--images-right .showcase__copy { order: initial; }
   .showcase__deck { width: min(380px, 92vw); }
   .showcase__image-button { --showcase-gap: 14px; clip-path: inset(0); overflow: hidden; }
-  .showcase__deck img { height: 240px; max-width: 92vw; }
+  .showcase__deck img { height: 276px; max-width: 92vw; }
   .showcase__graphic { width: min(240px, 64vw); }
   .showcase__copy p { font-size: .9rem; }
   .footer { min-height: auto; padding: 74px 20px 28px; gap: 54px; }
