@@ -39,6 +39,17 @@ img { max-width: 100%; display: block; }
 .hero__logo-wrap { display: grid; justify-items: center; width: min(560px, 46vw); margin: clamp(112px, 13vw, 180px) auto 0; text-align: center; animation: driftIn 1000ms cubic-bezier(.22,.88,.24,1) both; }
 .hero__logo { width: 100%; max-height: clamp(180px, 24vw, 310px); object-fit: contain; margin: 0 auto; filter: none; animation: none; }
 .hero__status { margin: clamp(12px, 1.6vw, 22px) 0 0; color: var(--color-accent); font-size: clamp(.9rem, 1.25vw, 1.2rem); font-weight: 700; letter-spacing: .035em; line-height: 1.1; white-space: nowrap; }
+.hero__weather { display: inline-flex; align-items: center; gap: .34em; }
+.weather-graphic { position: relative; display: inline-block; flex: 0 0 auto; width: 1.35em; height: 1.05em; color: currentColor; vertical-align: -.15em; }
+.weather-graphic::before, .weather-graphic::after { content: ''; position: absolute; display: block; box-sizing: border-box; }
+.weather-graphic--sun { height: 1.35em; border: .14em solid currentColor; border-radius: 50%; transform: scale(.72); box-shadow: 0 -.58em 0 -.48em currentColor, 0 .58em 0 -.48em currentColor, .58em 0 0 -.48em currentColor, -.58em 0 0 -.48em currentColor, .42em .42em 0 -.48em currentColor, -.42em -.42em 0 -.48em currentColor, .42em -.42em 0 -.48em currentColor, -.42em .42em 0 -.48em currentColor; }
+.weather-graphic--cloud::before, .weather-graphic--rain::before, .weather-graphic--snow::before, .weather-graphic--storm::before { left: .1em; bottom: .18em; width: 1.1em; height: .58em; border: .14em solid currentColor; border-radius: .7em; background: var(--color-bg); }
+.weather-graphic--cloud::after, .weather-graphic--rain::after, .weather-graphic--snow::after, .weather-graphic--storm::after { left: .37em; bottom: .55em; width: .5em; height: .5em; border: .14em solid currentColor; border-bottom: 0; border-radius: 50% 50% 0 0; background: var(--color-bg); }
+.weather-graphic--rain { box-shadow: .26em .92em 0 -.08em currentColor, .66em .92em 0 -.08em currentColor, 1.02em .92em 0 -.08em currentColor; }
+.weather-graphic--snow { box-shadow: .26em .9em 0 -.05em currentColor, .68em .98em 0 -.05em currentColor, 1.02em .9em 0 -.05em currentColor; }
+.weather-graphic--storm::after { content: '↯'; left: .44em; top: .36em; border: 0; background: transparent; font-weight: 700; font-size: .88em; line-height: 1; }
+.weather-graphic--fog::before { left: .08em; top: .22em; width: 1.18em; height: .54em; border-top: .14em solid currentColor; border-bottom: .14em solid currentColor; }
+.weather-graphic--fog::after { left: .26em; top: .82em; width: .88em; border-top: .14em solid currentColor; }
 .hero__image-strip { position: relative; z-index: 1; width: min(1100px, 86vw); display: grid; grid-template-columns: .92fr 1.48fr .92fr; gap: clamp(22px, 2.5vw, 44px); align-items: end; margin: clamp(36px, 4.6vw, 72px) auto 0; }
 .hero__image-strip img { width: 100%; height: clamp(210px, 27vw, 350px); object-fit: cover; object-position: center; background: color-mix(in srgb, var(--color-bg), var(--color-menu-text) 28%); border-radius: 0; animation: driftIn 1200ms cubic-bezier(.22,.88,.24,1) both; animation-delay: var(--delay); box-shadow: none; }
 .hero__image-strip img:nth-child(1), .hero__image-strip img:nth-child(3) { aspect-ratio: 1 / 1.22; }
@@ -119,7 +130,12 @@ input { width: 100%; border: 2px solid var(--color-text); border-radius: 999px; 
 .section-block--blue p:not(.eyebrow) { max-width: 740px; margin: 1rem auto 2rem; font-size: clamp(1.1rem, 1.5vw, 1.45rem); }
 .section-block--blue .brush-button { background: var(--color-menu-text); color: var(--color-accent); }
 .instagram-block { text-align: center; background: var(--color-bg); padding-top: clamp(58px, 7.6vw, 116px); }
-.instagram-block iframe { width: min(540px, 100%); min-height: 620px; border: 0; margin: 2rem auto 0; background: var(--color-menu-text); border-radius: 28px; }
+.instagram-lockup { display: inline-flex; align-items: center; justify-content: center; gap: clamp(14px, 1.8vw, 24px); color: var(--color-accent); }
+.instagram-lockup .instagram-lockup__mark { width: clamp(56px, 7vw, 92px); height: clamp(56px, 7vw, 92px); margin: 0; border-width: clamp(4px, .5vw, 7px); border-radius: 26%; }
+.instagram-lockup .instagram-lockup__mark::before { width: 34%; height: 34%; border-width: clamp(4px, .5vw, 7px); }
+.instagram-lockup .instagram-lockup__mark::after { width: 13%; height: 13%; right: 18%; top: 18%; }
+.instagram-lockup__text { color: var(--color-accent); font-weight: 700; font-size: clamp(3.7rem, 11vw, 10rem); line-height: .82; letter-spacing: -.07em; text-transform: lowercase; }
+.instagram-block iframe { display: block; width: min(540px, 100%); min-height: 620px; border: 0; margin: clamp(26px, 4vw, 52px) auto 0; background: var(--color-menu-text); border-radius: 28px; }
 .footer { min-height: 100svh; position: relative; display: grid; grid-template-rows: auto 1fr auto; gap: clamp(48px, 7vw, 96px); padding: clamp(86px, 8.5vw, 128px) clamp(34px, 5vw, 62px) clamp(26px, 3vw, 40px); background: #C42026; color: var(--color-menu-text); text-align: center; overflow: hidden; }
 .footer__columns { width: min(1120px, 100%); margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(42px, 6vw, 96px); align-items: start; }
 .footer__column h2 { margin: 0 0 clamp(26px, 3vw, 38px); color: var(--color-menu-text); font-size: clamp(2rem, 3.2vw, 3.6rem); line-height: .9; letter-spacing: -.04em; text-transform: uppercase; }
@@ -146,6 +162,7 @@ input { width: 100%; border: 2px solid var(--color-text); border-radius: 999px; 
   .hero__language { top: 14px; right: 14px; }
   .hero__logo-wrap { width: min(360px, 82vw); margin-top: clamp(34px, 9vw, 52px); }
   .hero__status { white-space: normal; max-width: 310px; }
+  .hero__weather { justify-content: center; }
   .hero__image-strip, .section-block--pink, .merch-card, .footer { grid-template-columns: 1fr; }
   .hero__image-strip { width: min(380px, 92vw); gap: 14px; margin-top: 34px; }
   .hero__image-strip img { height: 240px; }
@@ -159,6 +176,8 @@ input { width: 100%; border: 2px solid var(--color-text); border-radius: 999px; 
   .footer { min-height: auto; padding: 74px 20px 28px; gap: 54px; }
   .footer__columns { grid-template-columns: 1fr; gap: 46px; }
   .footer__mark { width: min(340px, 88vw); }
+  .instagram-lockup { display: grid; gap: 14px; }
+  .instagram-lockup__text { font-size: clamp(4.2rem, 19vw, 6.8rem); }
   .footer__bottom { display: grid; justify-content: center; gap: 12px; }
   .menu-panel__grid { grid-template-columns: 1fr; }
   .image-flow__rail, .history-archive__grid { grid-template-columns: 1fr; }

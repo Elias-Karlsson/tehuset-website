@@ -48,9 +48,26 @@ function ShowcaseSection({ id, images, imageSide, illustration, illustrationAlt,
   );
 }
 
+type WeatherKind = 'sun' | 'cloud' | 'rain' | 'snow' | 'storm' | 'fog';
+
+function weatherKindForCode(code: number): WeatherKind {
+  if ([0, 1].includes(code)) return 'sun';
+  if ([2, 3].includes(code)) return 'cloud';
+  if ([45, 48].includes(code)) return 'fog';
+  if ([51, 53, 55, 61, 63, 65, 80, 81, 82].includes(code)) return 'rain';
+  if ([71, 73, 75].includes(code)) return 'snow';
+  if ([95].includes(code)) return 'storm';
+  return 'cloud';
+}
+
+function WeatherGraphic({ kind }: { kind: WeatherKind }) {
+  return <span className={`weather-graphic weather-graphic--${kind}`} aria-hidden="true" />;
+}
+
 export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteContent; photos: { food: string[]; restaurant: string[] }; menuSv: MenuContent; menuEn: MenuContent; products: Product[] }) {
   const [lang, setLang] = useState<Lang>('sv');
   const [weather, setWeather] = useState('väder hämtas');
+  const [weatherKind, setWeatherKind] = useState<WeatherKind>('cloud');
   const menu = lang === 'sv' ? menuSv : menuEn;
   const ui = {
     sv: {
@@ -167,10 +184,14 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
         const temperature = Math.round(data?.current?.temperature_2m);
         const code = Number(data?.current?.weather_code);
         const label = weatherLabels[lang][code] ?? ui.weatherFallback;
+        setWeatherKind(Number.isFinite(code) ? weatherKindForCode(code) : 'cloud');
         setWeather(Number.isFinite(temperature) ? `${temperature}°C, ${label}` : label);
       })
       .catch(() => {
-        if (!cancelled) setWeather(ui.weatherFallback);
+        if (!cancelled) {
+          setWeatherKind('cloud');
+          setWeather(ui.weatherFallback);
+        }
       });
 
     return () => { cancelled = true; };
@@ -189,7 +210,7 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
         </div>
         <div className="hero__logo-wrap">
           <img className="hero__logo" src="/assets/brand/tehuset-logo-red.png" alt="Tehuset" />
-          <p className="hero__status">{ui.heroStatusPrefix} <span aria-hidden="true">•</span> {weather} <span aria-hidden="true">•</span> Stockholm</p>
+          <p className="hero__status">{ui.heroStatusPrefix} <span aria-hidden="true">•</span> <span className="hero__weather"><WeatherGraphic kind={weatherKind} /> {weather}</span> <span aria-hidden="true">•</span> Stockholm</p>
         </div>
         <div className="hero__image-strip" aria-label={ui.heroImages}>
           {site.hero.images.map((src, index) => <img key={src} src={src} alt="Tehuset" style={{ ['--delay' as string]: `${index * 180}ms` }} />)}
@@ -230,7 +251,6 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
 
       <section id="merch" className="section-block section-block--pink">
         <div className="section-block__copy">
-          <p className="eyebrow">{ui.shopEyebrow}</p>
           <h2>{site.sections.merch.title![lang]}</h2>
           <p>{site.sections.merch.body[lang]}</p>
         </div>
@@ -238,9 +258,10 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
       </section>
 
       <section id="instagram" className="section-block instagram-block">
-        <p className="eyebrow">{ui.instagramEyebrow}</p>
-        <h2>{site.sections.instagram.title![lang]}</h2>
-        <p>{site.sections.instagram.body[lang]}</p>
+        <a className="instagram-lockup" href="https://www.instagram.com/tehuset/" aria-label="Tehuset Instagram" target="_blank" rel="noreferrer">
+          <span className="footer__instagram instagram-lockup__mark" aria-hidden="true" />
+          <span className="instagram-lockup__text">tehuset</span>
+        </a>
         <iframe title="Tehuset Instagram" src={`https://www.instagram.com/${site.instagramHandle}/embed`} loading="lazy" />
       </section>
 
