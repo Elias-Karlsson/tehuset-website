@@ -189,26 +189,12 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
         </div>
 
         <div className="footer__mark" aria-hidden="true">
-          <svg className="footer__arc" viewBox="0 0 360 130">
-            <defs>
-              <path id="footerArc" d="M 42 112 C 84 24, 226 4, 318 96" />
-            </defs>
-            <text>
-              <textPath href="#footerArc" startOffset="50%" textAnchor="middle">Your daily cup of sunshine</textPath>
-            </text>
-          </svg>
-          <svg className="footer__sun" viewBox="0 0 280 150">
-            <g fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="128" cy="42" r="18" fill="currentColor" opacity=".35" />
-              <path d="M128 8v17M128 59v18M94 42H76M180 42h-20M104 18l12 13M151 31l13-13M98 67c40-16 80-16 120 0M78 91c52-18 104-18 156 0M96 115c42-14 86-14 128 0" />
-              <path d="M43 132c46-28 81-26 114-21 31 5 59 7 91-18" />
-            </g>
-          </svg>
+          <img src="/assets/illustrations/strommen-graphic.png" alt="" />
         </div>
 
         <div className="footer__bottom">
           <p>© 2026 Tehuset.</p>
-          <p>Site by Swell.</p>
+          <p>Site by Cadree</p>
         </div>
       </footer>
     </main>
