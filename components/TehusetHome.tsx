@@ -33,9 +33,12 @@ function ShowcaseSection({ id, images, imageSide, motionDirection, illustration,
   const trackImages = trackOffsets.map((offset) => images[wrapIndex(activeIndex + offset)]);
   const measureSlideDistance = () => {
     const rail = railRef.current;
-    const firstImage = rail?.querySelector('img');
-    if (!rail || !firstImage) return 0;
-    const gap = Number.parseFloat(window.getComputedStyle(rail).columnGap || '0');
+    const [firstImage, secondImage] = Array.from(rail?.querySelectorAll('img') ?? []);
+    if (!firstImage) return 0;
+    if (secondImage) {
+      return Math.abs(secondImage.getBoundingClientRect().left - firstImage.getBoundingClientRect().left);
+    }
+    const gap = Number.parseFloat(window.getComputedStyle(rail!).columnGap || '0');
     return firstImage.getBoundingClientRect().width + gap;
   };
 
@@ -77,7 +80,7 @@ function ShowcaseSection({ id, images, imageSide, motionDirection, illustration,
         <button className="showcase__image-button" type="button" onClick={showNext} aria-label={nextImageLabel}>
           <span ref={railRef} className={`showcase__rail${isSliding ? ' showcase__rail--moving' : ''}`} style={{ transform: `translate3d(${railShiftPx}px, 0, 0)` }}>
             {trackImages.map((src, index) => (
-              <img key={`${src}-${index}-${activeIndex}`} src={src} alt="Tehuset" loading={index <= 2 ? 'eager' : 'lazy'} />
+              <img key={`${src}-${index}-${activeIndex}`} src={src} alt="Tehuset" loading="eager" />
             ))}
           </span>
         </button>
