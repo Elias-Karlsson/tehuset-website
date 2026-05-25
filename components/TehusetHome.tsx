@@ -162,16 +162,54 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
       </section>
 
       <footer id="contact" className="footer">
-        <div>
-          <img src="/assets/brand/tehuset-logo-white.png" alt="Tehuset" />
-          <p>{site.sections.footer.body[lang]}</p>
+        <div className="footer__columns">
+          <section className="footer__column" aria-labelledby="footer-contact-title">
+            <h2 id="footer-contact-title">Contact</h2>
+            <div className="footer__contact">
+              <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+              <a className="footer__instagram" href="https://www.instagram.com/tehuset/" aria-label="Tehuset Instagram" target="_blank" rel="noreferrer" />
+            </div>
+          </section>
+
+          <section className="footer__column" aria-labelledby="footer-hours-title">
+            <h2 id="footer-hours-title">Opening Hours</h2>
+            <div className="footer__hours">
+              <p>{lang === 'sv' ? 'Alla dagar' : 'Every day'}</p>
+              <p>{lang === 'sv' ? '10 - sent' : '10 - late'}</p>
+            </div>
+          </section>
+
+          <section className="footer__column" aria-labelledby="footer-find-title">
+            <h2 id="footer-find-title">Find Us</h2>
+            <address>{site.contact.address[lang]}</address>
+            <a className="footer__map-link" href="https://www.google.com/maps/search/?api=1&query=Karl%20XII%3As%20torg%209%2C%20Kungstr%C3%A4dg%C3%A5rden%2C%20Stockholm" target="_blank" rel="noreferrer">
+              I need a real map →
+            </a>
+          </section>
         </div>
-        <address>
-          <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
-          <span>{site.contact.address[lang]}</span>
-          {site.contact.socials.map((social) => <a key={social.url} href={social.url}>{social.label}</a>)}
-        </address>
-        <LanguageToggle lang={lang} setLang={setLang} tone="light" />
+
+        <div className="footer__mark" aria-hidden="true">
+          <svg className="footer__arc" viewBox="0 0 360 130">
+            <defs>
+              <path id="footerArc" d="M 42 112 C 84 24, 226 4, 318 96" />
+            </defs>
+            <text>
+              <textPath href="#footerArc" startOffset="50%" textAnchor="middle">Your daily cup of sunshine</textPath>
+            </text>
+          </svg>
+          <svg className="footer__sun" viewBox="0 0 280 150">
+            <g fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="128" cy="42" r="18" fill="currentColor" opacity=".35" />
+              <path d="M128 8v17M128 59v18M94 42H76M180 42h-20M104 18l12 13M151 31l13-13M98 67c40-16 80-16 120 0M78 91c52-18 104-18 156 0M96 115c42-14 86-14 128 0" />
+              <path d="M43 132c46-28 81-26 114-21 31 5 59 7 91-18" />
+            </g>
+          </svg>
+        </div>
+
+        <div className="footer__bottom">
+          <p>© 2026 Tehuset.</p>
+          <p>Site by Swell.</p>
+        </div>
       </footer>
     </main>
   );
