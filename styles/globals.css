@@ -38,7 +38,7 @@ img { max-width: 100%; display: block; }
 .hero__language { position: fixed; top: clamp(18px, 2.2vw, 32px); right: clamp(18px, 2.8vw, 42px); z-index: 100; }
 .hero__logo-wrap { display: grid; justify-items: center; width: min(560px, 46vw); margin: clamp(112px, 13vw, 180px) auto 0; text-align: center; animation: driftIn 1000ms cubic-bezier(.22,.88,.24,1) both; }
 .hero__logo { width: 100%; max-height: clamp(180px, 24vw, 310px); object-fit: contain; margin: 0 auto; filter: none; animation: none; }
-.hero__status { margin: clamp(12px, 1.6vw, 22px) 0 0; color: var(--color-accent); font-size: clamp(.9rem, 1.25vw, 1.2rem); font-weight: 700; letter-spacing: .035em; line-height: 1.1; white-space: nowrap; }
+.hero__status { margin: clamp(12px, 1.6vw, 22px) 0 0; color: var(--color-accent); font-size: clamp(1.08rem, 1.58vw, 1.55rem); font-weight: 700; letter-spacing: .055em; line-height: 1.08; text-transform: uppercase; white-space: nowrap; }
 .hero__weather { display: inline-flex; align-items: center; gap: .34em; }
 .weather-graphic { position: relative; display: inline-block; flex: 0 0 auto; width: 1.35em; height: 1.05em; color: currentColor; vertical-align: -.15em; }
 .weather-graphic::before, .weather-graphic::after { content: ''; position: absolute; display: block; box-sizing: border-box; }
@@ -51,7 +51,7 @@ img { max-width: 100%; display: block; }
 .weather-graphic--fog::before { left: .08em; top: .22em; width: 1.18em; height: .54em; border-top: .14em solid currentColor; border-bottom: .14em solid currentColor; }
 .weather-graphic--fog::after { left: .26em; top: .82em; width: .88em; border-top: .14em solid currentColor; }
 .hero__image-strip { position: relative; z-index: 1; width: min(1100px, 86vw); display: grid; grid-template-columns: .92fr 1.48fr .92fr; gap: clamp(22px, 2.5vw, 44px); align-items: end; margin: clamp(36px, 4.6vw, 72px) auto 0; }
-.hero__image-strip img { width: 100%; height: clamp(210px, 27vw, 350px); object-fit: cover; object-position: center; background: color-mix(in srgb, var(--color-bg), var(--color-menu-text) 28%); border-radius: 0; animation: driftIn 1200ms cubic-bezier(.22,.88,.24,1) both; animation-delay: var(--delay); box-shadow: none; }
+.hero__image-strip img { width: 100%; height: clamp(210px, 27vw, 350px); object-fit: cover; object-position: center; background: color-mix(in srgb, var(--color-bg), var(--color-menu-text) 28%); border-radius: 0; animation: none; box-shadow: none; }
 .hero__image-strip img:nth-child(1), .hero__image-strip img:nth-child(3) { aspect-ratio: 1 / 1.22; }
 .hero__image-strip img:nth-child(2) { transform: none; aspect-ratio: 1.55 / 1; }
 
