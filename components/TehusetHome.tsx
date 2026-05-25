@@ -34,25 +34,21 @@ function ShowcaseSection({ id, images, imageSide, motionDirection, illustration,
   const trackImages = trackOffsets.map((offset) => images[wrapIndex(activeIndex + offset)]);
   const measureSlideDistance = () => {
     const rail = railRef.current;
-    const [firstImage, secondImage] = Array.from(rail?.querySelectorAll('img') ?? []);
-    if (!rail || !firstImage) return 0;
-    if (secondImage) {
-      return Math.abs(secondImage.getBoundingClientRect().left - firstImage.getBoundingClientRect().left);
-    }
-    const gap = Number.parseFloat(window.getComputedStyle(rail).columnGap || '0');
-    return firstImage.getBoundingClientRect().width + gap;
-  };
+    const railImages = Array.from(rail?.querySelectorAll('img') ?? []);
+    if (!rail || railImages.length === 0) return 0;
 
-  const waitForRailImages = async () => {
-    const railImages = Array.from(railRef.current?.querySelectorAll('img') ?? []);
-    await Promise.all(railImages.map((image) => {
-      if (image.complete && image.naturalWidth > 0) return Promise.resolve();
-      if (image.decode) return image.decode().catch(() => undefined);
-      return new Promise<void>((resolve) => {
-        image.addEventListener('load', () => resolve(), { once: true });
-        image.addEventListener('error', () => resolve(), { once: true });
-      });
-    }));
+    const imageRects = railImages.map((image) => image.getBoundingClientRect());
+    for (let index = 0; index < imageRects.length - 1; index += 1) {
+      const current = imageRects[index];
+      const next = imageRects[index + 1];
+      if (current.width > 20 && next.width > 20) {
+        return Math.abs(next.left - current.left);
+      }
+    }
+
+    const firstVisibleImage = imageRects.find((rect) => rect.width > 20);
+    const gap = Number.parseFloat(window.getComputedStyle(rail).columnGap || '0');
+    return firstVisibleImage ? firstVisibleImage.width + gap : 0;
   };
 
   useEffect(() => {
@@ -85,25 +81,23 @@ function ShowcaseSection({ id, images, imageSide, motionDirection, illustration,
     setRailShiftPx(0);
 
     window.requestAnimationFrame(() => {
-      void waitForRailImages().then(() => {
-        const distance = measureSlideDistance();
-        if (!distance) {
+      const distance = measureSlideDistance();
+      if (!distance) {
+        finishSlide(direction);
+        return;
+      }
+
+      const initialShift = isNext ? 0 : -distance;
+      const targetShift = isNext ? -distance : 0;
+
+      setRailShiftPx(initialShift);
+
+      window.requestAnimationFrame(() => {
+        setIsSliding(true);
+        setRailShiftPx(targetShift);
+        slideTimer.current = window.setTimeout(() => {
           finishSlide(direction);
-          return;
-        }
-
-        const initialShift = isNext ? 0 : -distance;
-        const targetShift = isNext ? -distance : 0;
-
-        setRailShiftPx(initialShift);
-
-        window.requestAnimationFrame(() => {
-          setIsSliding(true);
-          setRailShiftPx(targetShift);
-          slideTimer.current = window.setTimeout(() => {
-            finishSlide(direction);
-          }, slideDurationMs);
-        });
+        }, slideDurationMs);
       });
     });
   };
