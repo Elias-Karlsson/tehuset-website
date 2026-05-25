@@ -28,55 +28,95 @@ function ShowcaseSection({ id, images, imageSide, motionDirection, illustration,
   const [isSliding, setIsSliding] = useState(false);
   const railRef = useRef<HTMLSpanElement | null>(null);
   const slideTimer = useRef<number | null>(null);
+  const isSlidingRef = useRef(false);
   const slideDurationMs = 980;
   const wrapIndex = (index: number) => (index + images.length) % images.length;
   const trackImages = trackOffsets.map((offset) => images[wrapIndex(activeIndex + offset)]);
   const measureSlideDistance = () => {
     const rail = railRef.current;
     const [firstImage, secondImage] = Array.from(rail?.querySelectorAll('img') ?? []);
-    if (!firstImage) return 0;
+    if (!rail || !firstImage) return 0;
     if (secondImage) {
       return Math.abs(secondImage.getBoundingClientRect().left - firstImage.getBoundingClientRect().left);
     }
-    const gap = Number.parseFloat(window.getComputedStyle(rail!).columnGap || '0');
+    const gap = Number.parseFloat(window.getComputedStyle(rail).columnGap || '0');
     return firstImage.getBoundingClientRect().width + gap;
   };
 
-  useEffect(() => () => {
-    if (slideTimer.current) window.clearTimeout(slideTimer.current);
-  }, []);
-
-  const startSlide = (enteringFrom: 'left' | 'right') => {
-    if (isSliding) return;
-    const enteringFromRight = enteringFrom === 'right';
-    setTrackOffsets(enteringFromRight ? [0, 1, 2, 3] : [-1, 0, 1, 2]);
-    setRailShiftPx(0);
-    setIsSliding(false);
-
-    window.requestAnimationFrame(() => {
-      const distance = measureSlideDistance();
-      setRailShiftPx(enteringFromRight ? 0 : -distance);
-
-      window.requestAnimationFrame(() => {
-        setIsSliding(true);
-        setRailShiftPx(enteringFromRight ? -distance : 0);
+  const waitForRailImages = async () => {
+    const railImages = Array.from(railRef.current?.querySelectorAll('img') ?? []);
+    await Promise.all(railImages.map((image) => {
+      if (image.complete && image.naturalWidth > 0) return Promise.resolve();
+      if (image.decode) return image.decode().catch(() => undefined);
+      return new Promise<void>((resolve) => {
+        image.addEventListener('load', () => resolve(), { once: true });
+        image.addEventListener('error', () => resolve(), { once: true });
       });
-    });
-
-    slideTimer.current = window.setTimeout(() => {
-      setActiveIndex((current) => wrapIndex(current + (enteringFromRight ? 1 : -1)));
-      setIsSliding(false);
-      setTrackOffsets([0, 1, 2]);
-      setRailShiftPx(0);
-    }, slideDurationMs);
+    }));
   };
 
-  const showNext = () => startSlide(motionDirection === 'from-right' ? 'right' : 'left');
-  const showPrevious = () => startSlide(motionDirection === 'from-right' ? 'left' : 'right');
+  useEffect(() => {
+    images.forEach((src) => {
+      const image = new Image();
+      image.src = src;
+      image.decode?.().catch(() => undefined);
+    });
+
+    return () => {
+      if (slideTimer.current) window.clearTimeout(slideTimer.current);
+    };
+  }, [images]);
+
+  const finishSlide = (direction: 'next' | 'previous') => {
+    setActiveIndex((current) => wrapIndex(current + (direction === 'next' ? 1 : -1)));
+    setIsSliding(false);
+    isSlidingRef.current = false;
+    setTrackOffsets([0, 1, 2]);
+    setRailShiftPx(0);
+    slideTimer.current = null;
+  };
+
+  const startSlide = (direction: 'next' | 'previous') => {
+    if (isSlidingRef.current) return;
+    isSlidingRef.current = true;
+    const isNext = direction === 'next';
+    setTrackOffsets(isNext ? [0, 1, 2, 3] : [-1, 0, 1, 2]);
+    setIsSliding(false);
+    setRailShiftPx(0);
+
+    window.requestAnimationFrame(() => {
+      void waitForRailImages().then(() => {
+        const distance = measureSlideDistance();
+        if (!distance) {
+          finishSlide(direction);
+          return;
+        }
+
+        const initialShift = isNext ? 0 : -distance;
+        const targetShift = isNext ? -distance : 0;
+
+        setRailShiftPx(initialShift);
+
+        window.requestAnimationFrame(() => {
+          setIsSliding(true);
+          setRailShiftPx(targetShift);
+          slideTimer.current = window.setTimeout(() => {
+            finishSlide(direction);
+          }, slideDurationMs);
+        });
+      });
+    });
+  };
+
+  const showNext = () => startSlide('next');
+  const showPrevious = () => startSlide('previous');
 
   return (
     <section id={id} className={`showcase showcase--images-${imageSide} showcase--motion-${motionDirection}`}>
       <div className="showcase__deck" aria-label={imageLabel}>
+        <div className="showcase__preload" aria-hidden="true">
+          {images.map((src) => <img key={src} src={src} alt="" loading="eager" />)}
+        </div>
         <button className="showcase__image-button" type="button" onClick={showNext} aria-label={nextImageLabel}>
           <span ref={railRef} className={`showcase__rail${isSliding ? ' showcase__rail--moving' : ''}`} style={{ transform: `translate3d(${railShiftPx}px, 0, 0)` }}>
             {trackImages.map((src, index) => (
@@ -259,7 +299,13 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
         </div>
         <div className="hero__logo-wrap">
           <img className="hero__logo" src="/assets/brand/tehuset-logo-red.png" alt="Tehuset" />
-          <p className="hero__status">{ui.heroStatusPrefix} <span aria-hidden="true">•</span> <span className="hero__weather"><WeatherGraphic kind={weatherKind} /> {weather}</span> <span aria-hidden="true">•</span> Stockholm</p>
+          <p className="hero__status">
+            <span>{ui.heroStatusPrefix}</span>
+            <span className="hero__status-separator" aria-hidden="true">•</span>
+            <span className="hero__weather"><WeatherGraphic kind={weatherKind} /> {weather}</span>
+            <span className="hero__status-separator" aria-hidden="true">•</span>
+            <span>Stockholm</span>
+          </p>
         </div>
         <div className="hero__image-strip" aria-label={ui.heroImages}>
           {site.hero.images.map((src, index) => <img key={src} src={src} alt="Tehuset" style={{ ['--delay' as string]: `${index * 180}ms` }} />)}
