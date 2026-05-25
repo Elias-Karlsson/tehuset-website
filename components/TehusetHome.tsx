@@ -147,13 +147,6 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
         <MerchCheckout lang={lang} products={products} />
       </section>
 
-      <section id="reservations" className="section-block section-block--blue">
-        <p className="eyebrow">{lang === 'sv' ? 'BOKNING' : 'BOOKING'}</p>
-        <h2>{site.sections.reservations.title![lang]}</h2>
-        <p>{site.sections.reservations.body[lang]}</p>
-        <a className="brush-button" href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
-      </section>
-
       <section id="instagram" className="section-block instagram-block">
         <p className="eyebrow">INSTAGRAM</p>
         <h2>{site.sections.instagram.title![lang]}</h2>
