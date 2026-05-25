@@ -93,13 +93,13 @@ img { max-width: 100%; display: block; }
 .menu-panel--sv { background: var(--color-menu-sv); }
 .menu-panel--en { background: var(--color-menu-en); }
 .menu-panel__logo { width: min(260px, 44vw); margin: 0 auto 1rem; }
-.menu-panel h2 { margin: 0 0 clamp(32px, 5vw, 72px); font-size: clamp(4rem, 10vw, 9rem); font-weight: 400; text-transform: uppercase; letter-spacing: .035em; }
+.menu-panel h2 { margin: 0 0 clamp(32px, 5vw, 72px); font-size: clamp(3.2rem, 8vw, 7.2rem); font-weight: 400; text-transform: uppercase; letter-spacing: .035em; }
 .menu-panel__grid { display: grid; grid-template-columns: repeat(2, minmax(260px, 1fr)); gap: clamp(32px, 4.5vw, 76px); max-width: 1180px; margin: 0 auto; }
-.menu-panel__group h3 { margin: 0 0 1rem; font-size: clamp(2.2rem, 4.8vw, 4.6rem); font-weight: 400; text-transform: uppercase; }
+.menu-panel__group h3 { margin: 0 0 1rem; font-size: clamp(1.76rem, 3.84vw, 3.68rem); font-weight: 400; text-transform: uppercase; }
 .menu-panel__item { margin-block: 1rem; }
 .menu-panel__line { display: flex; justify-content: center; gap: 1rem; align-items: baseline; }
-.menu-panel__item h4 { margin: 0; font-size: clamp(1.35rem, 2.2vw, 2.15rem); font-weight: 400; }
-.menu-panel__item p { margin: .15rem 0 0; font-size: clamp(1rem, 1.3vw, 1.35rem); }
+.menu-panel__item h4 { margin: 0; font-size: clamp(1.08rem, 1.76vw, 1.72rem); font-weight: 400; }
+.menu-panel__item p { margin: .15rem 0 0; font-size: clamp(.8rem, 1.04vw, 1.08rem); }
 
 .section-block { padding: clamp(82px, 10vw, 150px) clamp(24px, 8vw, 140px); }
 .section-block--pink { background: var(--color-alt-bg-2); color: var(--color-alt-text-2); display: grid; grid-template-columns: minmax(240px, .8fr) minmax(300px, 1.2fr); gap: clamp(32px, 5vw, 80px); align-items: center; }
