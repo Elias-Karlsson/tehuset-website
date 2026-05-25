@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
   const body = (await request.json()) as SwishPayload;
   const product = productsData.products.find((item) => item.id === body.productId && item.active);
   const quantity = Math.max(1, Math.min(10, Number(body.quantity || 1)));
-  if (!product) return NextResponse.json({ message: 'Product not found.' }, { status: 404 });
+  if (!product) return NextResponse.json({ message: body.lang === 'en' ? 'Product not found.' : 'Produkten hittades inte.' }, { status: 404 });
   if (!body.payerAlias) return NextResponse.json({ message: body.lang === 'en' ? 'Add a Swish phone number.' : 'Ange ett Swish-nummer.' }, { status: 400 });
 
   const amount = product.priceSek * quantity;
@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
 
   if (!response.ok) {
     const detail = await response.text();
-    return NextResponse.json({ message: 'Swish request failed.', detail }, { status: 502 });
+    return NextResponse.json({ message: body.lang === 'en' ? 'Swish request failed.' : 'Swish-förfrågan misslyckades.', detail }, { status: 502 });
   }
 
   await sendConfirmation(`Tehuset merch order ${paymentReference}`, orderText);

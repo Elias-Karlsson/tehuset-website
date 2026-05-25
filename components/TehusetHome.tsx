@@ -21,7 +21,7 @@ const foodShowcaseImages = [
   '/assets/photography/food4.jpeg',
 ];
 
-function ShowcaseSection({ id, images, imageSide, illustration, illustrationAlt, text }: { id: string; images: string[]; imageSide: 'left' | 'right'; illustration: string; illustrationAlt: string; text: string }) {
+function ShowcaseSection({ id, images, imageSide, illustration, illustrationAlt, text, imageLabel, controlsLabel, previousImageLabel, nextImageLabel }: { id: string; images: string[]; imageSide: 'left' | 'right'; illustration: string; illustrationAlt: string; text: string; imageLabel: string; controlsLabel: string; previousImageLabel: string; nextImageLabel: string }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const showPrevious = () => setActiveIndex((current) => (current - 1 + images.length) % images.length);
   const showNext = () => setActiveIndex((current) => (current + 1) % images.length);
@@ -29,15 +29,15 @@ function ShowcaseSection({ id, images, imageSide, illustration, illustrationAlt,
 
   return (
     <section id={id} className={`showcase showcase--images-${imageSide}`}>
-      <div className="showcase__deck" aria-label={`${id} images`}>
-        <button className="showcase__image-button" type="button" onClick={showNext} aria-label="Show next image">
+      <div className="showcase__deck" aria-label={imageLabel}>
+        <button className="showcase__image-button" type="button" onClick={showNext} aria-label={nextImageLabel}>
           {orderedImages.map((src, index) => (
             <img key={`${src}-${activeIndex}`} src={src} alt="Tehuset" loading={index === 0 ? 'eager' : 'lazy'} style={{ ['--card-index' as string]: index }} />
           ))}
         </button>
-        <div className="showcase__controls" aria-label="Image controls">
-          <button type="button" onClick={showPrevious} aria-label="Show previous image">←</button>
-          <button type="button" onClick={showNext} aria-label="Show next image">→</button>
+        <div className="showcase__controls" aria-label={controlsLabel}>
+          <button type="button" onClick={showPrevious} aria-label={previousImageLabel}>←</button>
+          <button type="button" onClick={showNext} aria-label={nextImageLabel}>→</button>
         </div>
       </div>
       <div className="showcase__copy">
@@ -52,31 +52,113 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
   const [lang, setLang] = useState<Lang>('sv');
   const [weather, setWeather] = useState('väder hämtas');
   const menu = lang === 'sv' ? menuSv : menuEn;
+  const ui = {
+    sv: {
+      primaryNav: 'Primär navigering',
+      contact: 'Kontakt',
+      about: 'Om oss',
+      history: 'Historia',
+      heroImages: 'Tehuset-bilder',
+      heroStatusPrefix: 'Öppet från 10 - sent',
+      showcaseImages: 'Bildspel',
+      imageControls: 'Bildkontroller',
+      previousImage: 'Visa föregående bild',
+      nextImage: 'Visa nästa bild',
+      elmsAlt: 'Almgrafik',
+      castleAlt: 'Slottsgrafik',
+      historyCopy: 'Du hittar oss under almarna i Kungsträdgården, Stockholms vardagsrum. Kom för en varm smörgås, ett glas vin eller en lugn stund mitt i staden. Vi har hållit tekitteln varm ett tag.',
+      foodCopy: 'Vår fisksoppa är skapad av den legendariske fiskaren Jack Anthony Smith, en pärla han tog med sig från Barbados. Inspirerad av livet vid vågorna, en rätt som har rest hit, från övatten till Stockholms almar, med många provsmakningar på vägen.',
+      shopEyebrow: 'TEHUSET BUTIK',
+      instagramEyebrow: 'INSTAGRAM',
+      openingHours: 'Öppettider',
+      everyDay: 'Alla dagar',
+      openingTime: '10 - sent',
+      findUs: 'Hitta hit',
+      mapLink: 'Jag behöver en riktig karta →',
+      siteBy: 'Sida av Cadree',
+      weatherFallback: 'aktuellt väder',
+      weatherLoading: 'väder hämtas',
+    },
+    en: {
+      primaryNav: 'Primary navigation',
+      contact: 'Contact',
+      about: 'About',
+      history: 'History',
+      heroImages: 'Tehuset hero images',
+      heroStatusPrefix: 'Open from 10 - late',
+      showcaseImages: 'Image carousel',
+      imageControls: 'Image controls',
+      previousImage: 'Show previous image',
+      nextImage: 'Show next image',
+      elmsAlt: 'Elms graphic',
+      castleAlt: 'Castle graphic',
+      historyCopy: 'You’ll find us tucked under the elms in Kungsträdgården, Stockholm’s living room. Come for a warm sandwich, a glass of wine, or a soothing moment in the middle of the city. We’ve been keeping the kettle warm for a while.',
+      foodCopy: 'Our fish soup is crafted by legendary fisherman Jack Anthony Smith, a gem he brought from Barbados. Inspired by life by the swells, it’s the sort of dish that travels. From island waters to Stockholm elms, with plenty of tastings in between.',
+      shopEyebrow: 'TEHUSET SHOP',
+      instagramEyebrow: 'INSTAGRAM',
+      openingHours: 'Opening Hours',
+      everyDay: 'Every day',
+      openingTime: '10 - late',
+      findUs: 'Find Us',
+      mapLink: 'I need a real map →',
+      siteBy: 'Site by Cadree',
+      weatherFallback: 'current weather',
+      weatherLoading: 'weather loading',
+    },
+  }[lang];
 
   useEffect(() => {
-    const weatherLabels: Record<number, string> = {
-      0: 'klart',
-      1: 'mestadels klart',
-      2: 'halvklart',
-      3: 'mulet',
-      45: 'dimma',
-      48: 'dimma',
-      51: 'duggregn',
-      53: 'duggregn',
-      55: 'duggregn',
-      61: 'regn',
-      63: 'regn',
-      65: 'regn',
-      71: 'snö',
-      73: 'snö',
-      75: 'snö',
-      80: 'regnskurar',
-      81: 'regnskurar',
-      82: 'regnskurar',
-      95: 'åska',
+    document.documentElement.lang = lang;
+  }, [lang]);
+
+  useEffect(() => {
+    const weatherLabels: Record<Lang, Record<number, string>> = {
+      sv: {
+        0: 'klart',
+        1: 'mestadels klart',
+        2: 'halvklart',
+        3: 'mulet',
+        45: 'dimma',
+        48: 'dimma',
+        51: 'duggregn',
+        53: 'duggregn',
+        55: 'duggregn',
+        61: 'regn',
+        63: 'regn',
+        65: 'regn',
+        71: 'snö',
+        73: 'snö',
+        75: 'snö',
+        80: 'regnskurar',
+        81: 'regnskurar',
+        82: 'regnskurar',
+        95: 'åska',
+      },
+      en: {
+        0: 'clear',
+        1: 'mostly clear',
+        2: 'partly cloudy',
+        3: 'overcast',
+        45: 'fog',
+        48: 'fog',
+        51: 'drizzle',
+        53: 'drizzle',
+        55: 'drizzle',
+        61: 'rain',
+        63: 'rain',
+        65: 'rain',
+        71: 'snow',
+        73: 'snow',
+        75: 'snow',
+        80: 'rain showers',
+        81: 'rain showers',
+        82: 'rain showers',
+        95: 'thunderstorm',
+      },
     };
 
     let cancelled = false;
+    setWeather(ui.weatherLoading);
 
     fetch('https://api.open-meteo.com/v1/forecast?latitude=59.3293&longitude=18.0686&current=temperature_2m,weather_code&timezone=Europe%2FStockholm')
       .then((response) => response.ok ? response.json() : Promise.reject(new Error('weather unavailable')))
@@ -84,32 +166,32 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
         if (cancelled) return;
         const temperature = Math.round(data?.current?.temperature_2m);
         const code = Number(data?.current?.weather_code);
-        const label = weatherLabels[code] ?? 'aktuellt väder';
+        const label = weatherLabels[lang][code] ?? ui.weatherFallback;
         setWeather(Number.isFinite(temperature) ? `${temperature}°C, ${label}` : label);
       })
       .catch(() => {
-        if (!cancelled) setWeather('aktuellt väder');
+        if (!cancelled) setWeather(ui.weatherFallback);
       });
 
     return () => { cancelled = true; };
-  }, []);
+  }, [lang, ui.weatherFallback, ui.weatherLoading]);
 
   return (
     <main>
       <section className="hero monte-hero" id="top">
-        <nav className="hero__nav" aria-label="Primary">
-          <a href="#contact">Contact</a>
-          <a href="#about">About</a>
-          <a href="#history">History</a>
+        <nav className="hero__nav" aria-label={ui.primaryNav}>
+          <a href="#contact">{ui.contact}</a>
+          <a href="#about">{ui.about}</a>
+          <a href="#history">{ui.history}</a>
         </nav>
         <div className="hero__language">
           <LanguageToggle lang={lang} setLang={setLang} />
         </div>
         <div className="hero__logo-wrap">
           <img className="hero__logo" src="/assets/brand/tehuset-logo-red.png" alt="Tehuset" />
-          <p className="hero__status">Öppet från 10 - sent <span aria-hidden="true">•</span> {weather} <span aria-hidden="true">•</span> Stockholm</p>
+          <p className="hero__status">{ui.heroStatusPrefix} <span aria-hidden="true">•</span> {weather} <span aria-hidden="true">•</span> Stockholm</p>
         </div>
-        <div className="hero__image-strip" aria-label="Tehuset hero images">
+        <div className="hero__image-strip" aria-label={ui.heroImages}>
           {site.hero.images.map((src, index) => <img key={src} src={src} alt="Tehuset" style={{ ['--delay' as string]: `${index * 180}ms` }} />)}
         </div>
       </section>
@@ -123,8 +205,12 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
         images={restaurantShowcaseImages}
         imageSide="right"
         illustration="/assets/illustrations/elms-graphic2.png"
-        illustrationAlt="Elms graphic"
-        text="You'll find us tucked under the elms in Kungsträdgården, Stockholm's living room. Come for a warm sandwich, a glass of wine, or a soothing moment in the middle of the city. We’ve been keeping the kettle warm for a while."
+        illustrationAlt={ui.elmsAlt}
+        text={ui.historyCopy}
+        imageLabel={`${ui.history} ${ui.showcaseImages}`}
+        controlsLabel={ui.imageControls}
+        previousImageLabel={ui.previousImage}
+        nextImageLabel={ui.nextImage}
       />
 
       <ShowcaseSection
@@ -132,15 +218,19 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
         images={foodShowcaseImages}
         imageSide="left"
         illustration="/assets/illustrations/castle-graphic2.png"
-        illustrationAlt="Castle graphic"
-        text="Our fish soup is crafted by legendary fisherman Jack Anthony Smith, a gem he brought from Barbados. Inspired by life by the swells, it’s the sort of dish that travels. From island waters to Stockholm elms, with plenty of tastings in between."
+        illustrationAlt={ui.castleAlt}
+        text={ui.foodCopy}
+        imageLabel={`${site.sections.food.eyebrow?.[lang] ?? ui.showcaseImages} ${ui.showcaseImages}`}
+        controlsLabel={ui.imageControls}
+        previousImageLabel={ui.previousImage}
+        nextImageLabel={ui.nextImage}
       />
 
       <MenuPanel menu={menu} />
 
       <section id="merch" className="section-block section-block--pink">
         <div className="section-block__copy">
-          <p className="eyebrow">TEHUSET SHOP</p>
+          <p className="eyebrow">{ui.shopEyebrow}</p>
           <h2>{site.sections.merch.title![lang]}</h2>
           <p>{site.sections.merch.body[lang]}</p>
         </div>
@@ -148,7 +238,7 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
       </section>
 
       <section id="instagram" className="section-block instagram-block">
-        <p className="eyebrow">INSTAGRAM</p>
+        <p className="eyebrow">{ui.instagramEyebrow}</p>
         <h2>{site.sections.instagram.title![lang]}</h2>
         <p>{site.sections.instagram.body[lang]}</p>
         <iframe title="Tehuset Instagram" src={`https://www.instagram.com/${site.instagramHandle}/embed`} loading="lazy" />
@@ -157,7 +247,7 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
       <footer id="contact" className="footer">
         <div className="footer__columns">
           <section className="footer__column" aria-labelledby="footer-contact-title">
-            <h2 id="footer-contact-title">Contact</h2>
+            <h2 id="footer-contact-title">{ui.contact}</h2>
             <div className="footer__contact">
               <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
               <a className="footer__instagram" href="https://www.instagram.com/tehuset/" aria-label="Tehuset Instagram" target="_blank" rel="noreferrer" />
@@ -165,18 +255,18 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
           </section>
 
           <section className="footer__column" aria-labelledby="footer-hours-title">
-            <h2 id="footer-hours-title">Opening Hours</h2>
+            <h2 id="footer-hours-title">{ui.openingHours}</h2>
             <div className="footer__hours">
-              <p>{lang === 'sv' ? 'Alla dagar' : 'Every day'}</p>
-              <p>{lang === 'sv' ? '10 - sent' : '10 - late'}</p>
+              <p>{ui.everyDay}</p>
+              <p>{ui.openingTime}</p>
             </div>
           </section>
 
           <section className="footer__column" aria-labelledby="footer-find-title">
-            <h2 id="footer-find-title">Find Us</h2>
+            <h2 id="footer-find-title">{ui.findUs}</h2>
             <address>{site.contact.address[lang]}</address>
             <a className="footer__map-link" href="https://www.google.com/maps/search/?api=1&query=Karl%20XII%3As%20torg%209%2C%20Kungstr%C3%A4dg%C3%A5rden%2C%20Stockholm" target="_blank" rel="noreferrer">
-              I need a real map →
+              {ui.mapLink}
             </a>
           </section>
         </div>
@@ -187,7 +277,7 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
 
         <div className="footer__bottom">
           <p>© 2026 Tehuset.</p>
-          <p>Site by Cadree</p>
+          <p>{ui.siteBy}</p>
         </div>
       </footer>
     </main>
