@@ -82,7 +82,7 @@ img { max-width: 100%; display: block; }
 .showcase--images-right { grid-template-columns: minmax(300px, .82fr) minmax(420px, 1.18fr); }
 .showcase--images-right .showcase__deck { order: 2; justify-self: end; margin-right: calc(-1 * var(--showcase-edge-bleed)); }
 .showcase--images-right .showcase__copy { order: 1; }
-.showcase__deck { position: relative; display: block; width: min(874px, 66.7vw); max-width: none; padding-bottom: clamp(48px, 4.5vw, 64px); }
+.showcase__deck { position: relative; display: block; width: min(820px, 58vw); max-width: none; padding-bottom: clamp(48px, 4.5vw, 64px); }
 .showcase__preload { position: absolute; inset: 0 auto auto 0; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none; }
 .showcase__preload img { width: 1px; height: 1px; object-fit: cover; }
 .showcase__image-button { --showcase-gap: var(--grid-gap); display: block; overflow: visible; width: 100%; min-width: 0; margin: 0; padding: 0; border: 0; background: transparent; cursor: pointer; }
@@ -93,7 +93,7 @@ img { max-width: 100%; display: block; }
 .showcase__deck img { width: auto; height: clamp(242px, 31vw, 403px); max-width: none; object-fit: contain; object-position: center; border: 0; border-radius: 0; background: transparent; box-shadow: none; flex: 0 0 auto; }
 .showcase__controls { position: absolute; left: 50%; bottom: 0; display: flex; justify-content: center; width: fit-content; gap: var(--space-3); color: var(--color-accent); transform: translateX(-50%); }
 .showcase__controls button { display: grid; place-items: center; width: 39px; height: 39px; padding: 0; border: 2px solid currentColor; border-radius: 999px; background: transparent; color: inherit; font: 700 1.25rem var(--font-din), sans-serif; line-height: 1; cursor: pointer; }
-.showcase__copy { display: grid; justify-items: center; text-align: center; align-content: center; gap: var(--module-gap); }
+.showcase__copy { position: relative; z-index: 1; display: grid; justify-items: center; text-align: center; align-content: center; gap: var(--module-gap); }
 .showcase__graphic { width: min(362px, 51.75vw); max-height: 328px; object-fit: contain; }
 .showcase__copy p { max-width: 529px; margin: 0; color: var(--color-accent); font-weight: 700; font-size: clamp(1.17rem, 1.59vw, 1.54rem); line-height: 1.12; letter-spacing: .03em; text-transform: uppercase; }
 
@@ -185,11 +185,11 @@ input { width: 100%; border: 2px solid var(--color-text); border-radius: 999px; 
 @keyframes deckSettle { 0% { opacity: 0; transform: translate3d(0, 34px, 0) rotate(4deg); } 100% { opacity: 1; } }
 @keyframes floatCurl { 0%,100% { transform: translate3d(0,0,0) rotate(-1deg); } 50% { transform: translate3d(10px,-16px,0) rotate(1deg); } }
 
-@media (max-width: 1024px) {
+@media (max-width: 1360px) {
   .showcase, .showcase--images-right { grid-template-columns: 1fr; min-height: auto; gap: var(--space-7); }
   .showcase--images-left .showcase__deck, .showcase--images-right .showcase__deck { justify-self: center; margin-inline: 0; }
   .showcase--images-right .showcase__deck, .showcase--images-right .showcase__copy { order: initial; }
-  .showcase__deck { width: min(720px, 100%); }
+  .showcase__deck { width: min(760px, 100%); max-width: 100%; overflow: hidden; }
   .showcase__image-button { clip-path: inset(0); overflow: hidden; }
   .showcase__deck img { max-width: 100%; }
   .section-block--pink, .merch-card { grid-template-columns: 1fr; }
