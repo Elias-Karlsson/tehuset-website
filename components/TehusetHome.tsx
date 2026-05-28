@@ -148,8 +148,8 @@ function WeatherGraphic({ kind }: { kind: WeatherKind }) {
 }
 
 export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteContent; photos: { food: string[]; restaurant: string[] }; menuSv: MenuContent; menuEn: MenuContent; products: Product[] }) {
-  const [lang, setLang] = useState<Lang>('sv');
-  const [weather, setWeather] = useState('väder hämtas');
+  const [lang, setLang] = useState<Lang>('en');
+  const [weather, setWeather] = useState('weather loading');
   const [weatherKind, setWeatherKind] = useState<WeatherKind>('cloud');
   const menu = lang === 'sv' ? menuSv : menuEn;
   const ui = {
