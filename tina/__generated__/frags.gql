@@ -40,6 +40,24 @@ fragment SiteParts on Site {
   }
   sections {
     __typename
+    about {
+      __typename
+      eyebrow {
+        __typename
+        sv
+        en
+      }
+      title {
+        __typename
+        sv
+        en
+      }
+      body {
+        __typename
+        sv
+        en
+      }
+    }
     food {
       __typename
       eyebrow {
@@ -147,6 +165,39 @@ fragment SiteParts on Site {
         sv
         en
       }
+    }
+  }
+  history {
+    __typename
+    eyebrow {
+      __typename
+      sv
+      en
+    }
+    title {
+      __typename
+      sv
+      en
+    }
+    body {
+      __typename
+      sv
+      en
+    }
+    drawerText {
+      __typename
+      sv
+      en
+    }
+    images {
+      __typename
+      src
+      caption {
+        __typename
+        sv
+        en
+      }
+      credit
     }
   }
 }

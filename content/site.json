@@ -129,6 +129,10 @@
       "sv": "Bilderna är tillagda som lager, inte ersättning. De visar samma idé som Tehuset lever av i dag: parken som mötesplats, servering, promenadstråk och sommaradress mitt i Stockholm.",
       "en": "These images are added as a layer, not as replacements. They show the same idea Tehuset lives on today: the park as meeting place, serving ground, promenade and summer address in central Stockholm."
     },
+    "drawerText": {
+      "sv": "Tillfällig historietext för Tina CMS. Här kan Tehuset senare fylla i berättelsen om platsen, parken, almarna och huset vid Karl XII:s torg.",
+      "en": "Placeholder history copy for Tina CMS. Tehuset can later fill this with the story of the place, the park, the elms and the house by Karl XII’s square."
+    },
     "images": [
       {
         "src": "/assets/history/kungstradgarden-1890-1900.jpg",

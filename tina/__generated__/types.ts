@@ -266,6 +266,31 @@ export type SiteHero = {
   images?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
 };
 
+export type SiteSectionsAboutEyebrow = {
+  __typename?: 'SiteSectionsAboutEyebrow';
+  sv?: Maybe<Scalars['String']['output']>;
+  en?: Maybe<Scalars['String']['output']>;
+};
+
+export type SiteSectionsAboutTitle = {
+  __typename?: 'SiteSectionsAboutTitle';
+  sv?: Maybe<Scalars['String']['output']>;
+  en?: Maybe<Scalars['String']['output']>;
+};
+
+export type SiteSectionsAboutBody = {
+  __typename?: 'SiteSectionsAboutBody';
+  sv?: Maybe<Scalars['String']['output']>;
+  en?: Maybe<Scalars['String']['output']>;
+};
+
+export type SiteSectionsAbout = {
+  __typename?: 'SiteSectionsAbout';
+  eyebrow?: Maybe<SiteSectionsAboutEyebrow>;
+  title?: Maybe<SiteSectionsAboutTitle>;
+  body?: Maybe<SiteSectionsAboutBody>;
+};
+
 export type SiteSectionsFoodEyebrow = {
   __typename?: 'SiteSectionsFoodEyebrow';
   sv?: Maybe<Scalars['String']['output']>;
@@ -418,12 +443,59 @@ export type SiteSectionsFooter = {
 
 export type SiteSections = {
   __typename?: 'SiteSections';
+  about?: Maybe<SiteSectionsAbout>;
   food?: Maybe<SiteSectionsFood>;
   restaurant?: Maybe<SiteSectionsRestaurant>;
   merch?: Maybe<SiteSectionsMerch>;
   reservations?: Maybe<SiteSectionsReservations>;
   instagram?: Maybe<SiteSectionsInstagram>;
   footer?: Maybe<SiteSectionsFooter>;
+};
+
+export type SiteHistoryEyebrow = {
+  __typename?: 'SiteHistoryEyebrow';
+  sv?: Maybe<Scalars['String']['output']>;
+  en?: Maybe<Scalars['String']['output']>;
+};
+
+export type SiteHistoryTitle = {
+  __typename?: 'SiteHistoryTitle';
+  sv?: Maybe<Scalars['String']['output']>;
+  en?: Maybe<Scalars['String']['output']>;
+};
+
+export type SiteHistoryBody = {
+  __typename?: 'SiteHistoryBody';
+  sv?: Maybe<Scalars['String']['output']>;
+  en?: Maybe<Scalars['String']['output']>;
+};
+
+export type SiteHistoryDrawerText = {
+  __typename?: 'SiteHistoryDrawerText';
+  sv?: Maybe<Scalars['String']['output']>;
+  en?: Maybe<Scalars['String']['output']>;
+};
+
+export type SiteHistoryImagesCaption = {
+  __typename?: 'SiteHistoryImagesCaption';
+  sv?: Maybe<Scalars['String']['output']>;
+  en?: Maybe<Scalars['String']['output']>;
+};
+
+export type SiteHistoryImages = {
+  __typename?: 'SiteHistoryImages';
+  src?: Maybe<Scalars['String']['output']>;
+  caption?: Maybe<SiteHistoryImagesCaption>;
+  credit?: Maybe<Scalars['String']['output']>;
+};
+
+export type SiteHistory = {
+  __typename?: 'SiteHistory';
+  eyebrow?: Maybe<SiteHistoryEyebrow>;
+  title?: Maybe<SiteHistoryTitle>;
+  body?: Maybe<SiteHistoryBody>;
+  drawerText?: Maybe<SiteHistoryDrawerText>;
+  images?: Maybe<Array<Maybe<SiteHistoryImages>>>;
 };
 
 export type Site = Node & Document & {
@@ -434,6 +506,7 @@ export type Site = Node & Document & {
   navigation?: Maybe<Array<Maybe<SiteNavigation>>>;
   hero?: Maybe<SiteHero>;
   sections?: Maybe<SiteSections>;
+  history?: Maybe<SiteHistory>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
@@ -491,6 +564,27 @@ export type SiteHeroFilter = {
   title?: InputMaybe<SiteHeroTitleFilter>;
   intro?: InputMaybe<SiteHeroIntroFilter>;
   images?: InputMaybe<ImageFilter>;
+};
+
+export type SiteSectionsAboutEyebrowFilter = {
+  sv?: InputMaybe<StringFilter>;
+  en?: InputMaybe<StringFilter>;
+};
+
+export type SiteSectionsAboutTitleFilter = {
+  sv?: InputMaybe<StringFilter>;
+  en?: InputMaybe<StringFilter>;
+};
+
+export type SiteSectionsAboutBodyFilter = {
+  sv?: InputMaybe<StringFilter>;
+  en?: InputMaybe<StringFilter>;
+};
+
+export type SiteSectionsAboutFilter = {
+  eyebrow?: InputMaybe<SiteSectionsAboutEyebrowFilter>;
+  title?: InputMaybe<SiteSectionsAboutTitleFilter>;
+  body?: InputMaybe<SiteSectionsAboutBodyFilter>;
 };
 
 export type SiteSectionsFoodEyebrowFilter = {
@@ -620,12 +714,52 @@ export type SiteSectionsFooterFilter = {
 };
 
 export type SiteSectionsFilter = {
+  about?: InputMaybe<SiteSectionsAboutFilter>;
   food?: InputMaybe<SiteSectionsFoodFilter>;
   restaurant?: InputMaybe<SiteSectionsRestaurantFilter>;
   merch?: InputMaybe<SiteSectionsMerchFilter>;
   reservations?: InputMaybe<SiteSectionsReservationsFilter>;
   instagram?: InputMaybe<SiteSectionsInstagramFilter>;
   footer?: InputMaybe<SiteSectionsFooterFilter>;
+};
+
+export type SiteHistoryEyebrowFilter = {
+  sv?: InputMaybe<StringFilter>;
+  en?: InputMaybe<StringFilter>;
+};
+
+export type SiteHistoryTitleFilter = {
+  sv?: InputMaybe<StringFilter>;
+  en?: InputMaybe<StringFilter>;
+};
+
+export type SiteHistoryBodyFilter = {
+  sv?: InputMaybe<StringFilter>;
+  en?: InputMaybe<StringFilter>;
+};
+
+export type SiteHistoryDrawerTextFilter = {
+  sv?: InputMaybe<StringFilter>;
+  en?: InputMaybe<StringFilter>;
+};
+
+export type SiteHistoryImagesCaptionFilter = {
+  sv?: InputMaybe<StringFilter>;
+  en?: InputMaybe<StringFilter>;
+};
+
+export type SiteHistoryImagesFilter = {
+  src?: InputMaybe<ImageFilter>;
+  caption?: InputMaybe<SiteHistoryImagesCaptionFilter>;
+  credit?: InputMaybe<StringFilter>;
+};
+
+export type SiteHistoryFilter = {
+  eyebrow?: InputMaybe<SiteHistoryEyebrowFilter>;
+  title?: InputMaybe<SiteHistoryTitleFilter>;
+  body?: InputMaybe<SiteHistoryBodyFilter>;
+  drawerText?: InputMaybe<SiteHistoryDrawerTextFilter>;
+  images?: InputMaybe<SiteHistoryImagesFilter>;
 };
 
 export type SiteFilter = {
@@ -635,6 +769,7 @@ export type SiteFilter = {
   navigation?: InputMaybe<SiteNavigationFilter>;
   hero?: InputMaybe<SiteHeroFilter>;
   sections?: InputMaybe<SiteSectionsFilter>;
+  history?: InputMaybe<SiteHistoryFilter>;
 };
 
 export type SiteConnectionEdges = {
@@ -970,6 +1105,27 @@ export type SiteHeroMutation = {
   images?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
+export type SiteSectionsAboutEyebrowMutation = {
+  sv?: InputMaybe<Scalars['String']['input']>;
+  en?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type SiteSectionsAboutTitleMutation = {
+  sv?: InputMaybe<Scalars['String']['input']>;
+  en?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type SiteSectionsAboutBodyMutation = {
+  sv?: InputMaybe<Scalars['String']['input']>;
+  en?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type SiteSectionsAboutMutation = {
+  eyebrow?: InputMaybe<SiteSectionsAboutEyebrowMutation>;
+  title?: InputMaybe<SiteSectionsAboutTitleMutation>;
+  body?: InputMaybe<SiteSectionsAboutBodyMutation>;
+};
+
 export type SiteSectionsFoodEyebrowMutation = {
   sv?: InputMaybe<Scalars['String']['input']>;
   en?: InputMaybe<Scalars['String']['input']>;
@@ -1097,12 +1253,52 @@ export type SiteSectionsFooterMutation = {
 };
 
 export type SiteSectionsMutation = {
+  about?: InputMaybe<SiteSectionsAboutMutation>;
   food?: InputMaybe<SiteSectionsFoodMutation>;
   restaurant?: InputMaybe<SiteSectionsRestaurantMutation>;
   merch?: InputMaybe<SiteSectionsMerchMutation>;
   reservations?: InputMaybe<SiteSectionsReservationsMutation>;
   instagram?: InputMaybe<SiteSectionsInstagramMutation>;
   footer?: InputMaybe<SiteSectionsFooterMutation>;
+};
+
+export type SiteHistoryEyebrowMutation = {
+  sv?: InputMaybe<Scalars['String']['input']>;
+  en?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type SiteHistoryTitleMutation = {
+  sv?: InputMaybe<Scalars['String']['input']>;
+  en?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type SiteHistoryBodyMutation = {
+  sv?: InputMaybe<Scalars['String']['input']>;
+  en?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type SiteHistoryDrawerTextMutation = {
+  sv?: InputMaybe<Scalars['String']['input']>;
+  en?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type SiteHistoryImagesCaptionMutation = {
+  sv?: InputMaybe<Scalars['String']['input']>;
+  en?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type SiteHistoryImagesMutation = {
+  src?: InputMaybe<Scalars['String']['input']>;
+  caption?: InputMaybe<SiteHistoryImagesCaptionMutation>;
+  credit?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type SiteHistoryMutation = {
+  eyebrow?: InputMaybe<SiteHistoryEyebrowMutation>;
+  title?: InputMaybe<SiteHistoryTitleMutation>;
+  body?: InputMaybe<SiteHistoryBodyMutation>;
+  drawerText?: InputMaybe<SiteHistoryDrawerTextMutation>;
+  images?: InputMaybe<Array<InputMaybe<SiteHistoryImagesMutation>>>;
 };
 
 export type SiteMutation = {
@@ -1112,6 +1308,7 @@ export type SiteMutation = {
   navigation?: InputMaybe<Array<InputMaybe<SiteNavigationMutation>>>;
   hero?: InputMaybe<SiteHeroMutation>;
   sections?: InputMaybe<SiteSectionsMutation>;
+  history?: InputMaybe<SiteHistoryMutation>;
 };
 
 export type MenusGroupsItemsMutation = {
@@ -1162,7 +1359,7 @@ export type PhotographyMutation = {
   restaurant?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type SitePartsFragment = { __typename: 'Site', instagramHandle?: string | null, adminEmail?: string | null, contact?: { __typename: 'SiteContact', email?: string | null, phone?: string | null, address?: { __typename: 'SiteContactAddress', sv?: string | null, en?: string | null } | null, socials?: Array<{ __typename: 'SiteContactSocials', label?: string | null, url?: string | null } | null> | null } | null, navigation?: Array<{ __typename: 'SiteNavigation', key?: string | null, sv?: string | null, en?: string | null, href?: string | null } | null> | null, hero?: { __typename: 'SiteHero', images?: Array<string | null> | null, title?: { __typename: 'SiteHeroTitle', sv?: string | null, en?: string | null } | null, intro?: { __typename: 'SiteHeroIntro', sv?: string | null, en?: string | null } | null } | null, sections?: { __typename: 'SiteSections', food?: { __typename: 'SiteSectionsFood', eyebrow?: { __typename: 'SiteSectionsFoodEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsFoodTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsFoodBody', sv?: string | null, en?: string | null } | null } | null, restaurant?: { __typename: 'SiteSectionsRestaurant', eyebrow?: { __typename: 'SiteSectionsRestaurantEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsRestaurantTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsRestaurantBody', sv?: string | null, en?: string | null } | null } | null, merch?: { __typename: 'SiteSectionsMerch', eyebrow?: { __typename: 'SiteSectionsMerchEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsMerchTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsMerchBody', sv?: string | null, en?: string | null } | null } | null, reservations?: { __typename: 'SiteSectionsReservations', eyebrow?: { __typename: 'SiteSectionsReservationsEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsReservationsTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsReservationsBody', sv?: string | null, en?: string | null } | null } | null, instagram?: { __typename: 'SiteSectionsInstagram', eyebrow?: { __typename: 'SiteSectionsInstagramEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsInstagramTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsInstagramBody', sv?: string | null, en?: string | null } | null } | null, footer?: { __typename: 'SiteSectionsFooter', eyebrow?: { __typename: 'SiteSectionsFooterEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsFooterTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsFooterBody', sv?: string | null, en?: string | null } | null } | null } | null };
+export type SitePartsFragment = { __typename: 'Site', instagramHandle?: string | null, adminEmail?: string | null, contact?: { __typename: 'SiteContact', email?: string | null, phone?: string | null, address?: { __typename: 'SiteContactAddress', sv?: string | null, en?: string | null } | null, socials?: Array<{ __typename: 'SiteContactSocials', label?: string | null, url?: string | null } | null> | null } | null, navigation?: Array<{ __typename: 'SiteNavigation', key?: string | null, sv?: string | null, en?: string | null, href?: string | null } | null> | null, hero?: { __typename: 'SiteHero', images?: Array<string | null> | null, title?: { __typename: 'SiteHeroTitle', sv?: string | null, en?: string | null } | null, intro?: { __typename: 'SiteHeroIntro', sv?: string | null, en?: string | null } | null } | null, sections?: { __typename: 'SiteSections', about?: { __typename: 'SiteSectionsAbout', eyebrow?: { __typename: 'SiteSectionsAboutEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsAboutTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsAboutBody', sv?: string | null, en?: string | null } | null } | null, food?: { __typename: 'SiteSectionsFood', eyebrow?: { __typename: 'SiteSectionsFoodEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsFoodTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsFoodBody', sv?: string | null, en?: string | null } | null } | null, restaurant?: { __typename: 'SiteSectionsRestaurant', eyebrow?: { __typename: 'SiteSectionsRestaurantEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsRestaurantTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsRestaurantBody', sv?: string | null, en?: string | null } | null } | null, merch?: { __typename: 'SiteSectionsMerch', eyebrow?: { __typename: 'SiteSectionsMerchEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsMerchTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsMerchBody', sv?: string | null, en?: string | null } | null } | null, reservations?: { __typename: 'SiteSectionsReservations', eyebrow?: { __typename: 'SiteSectionsReservationsEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsReservationsTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsReservationsBody', sv?: string | null, en?: string | null } | null } | null, instagram?: { __typename: 'SiteSectionsInstagram', eyebrow?: { __typename: 'SiteSectionsInstagramEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsInstagramTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsInstagramBody', sv?: string | null, en?: string | null } | null } | null, footer?: { __typename: 'SiteSectionsFooter', eyebrow?: { __typename: 'SiteSectionsFooterEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsFooterTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsFooterBody', sv?: string | null, en?: string | null } | null } | null } | null, history?: { __typename: 'SiteHistory', eyebrow?: { __typename: 'SiteHistoryEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteHistoryTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteHistoryBody', sv?: string | null, en?: string | null } | null, drawerText?: { __typename: 'SiteHistoryDrawerText', sv?: string | null, en?: string | null } | null, images?: Array<{ __typename: 'SiteHistoryImages', src?: string | null, credit?: string | null, caption?: { __typename: 'SiteHistoryImagesCaption', sv?: string | null, en?: string | null } | null } | null> | null } | null };
 
 export type MenusPartsFragment = { __typename: 'Menus', language?: string | null, title?: string | null, background?: string | null, groups?: Array<{ __typename: 'MenusGroups', category?: string | null, items?: Array<{ __typename: 'MenusGroupsItems', name?: string | null, description?: string | null, price?: string | null, image?: string | null } | null> | null } | null> | null };
 
@@ -1175,7 +1372,7 @@ export type SiteQueryVariables = Exact<{
 }>;
 
 
-export type SiteQuery = { __typename?: 'Query', site: { __typename: 'Site', id: string, instagramHandle?: string | null, adminEmail?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, contact?: { __typename: 'SiteContact', email?: string | null, phone?: string | null, address?: { __typename: 'SiteContactAddress', sv?: string | null, en?: string | null } | null, socials?: Array<{ __typename: 'SiteContactSocials', label?: string | null, url?: string | null } | null> | null } | null, navigation?: Array<{ __typename: 'SiteNavigation', key?: string | null, sv?: string | null, en?: string | null, href?: string | null } | null> | null, hero?: { __typename: 'SiteHero', images?: Array<string | null> | null, title?: { __typename: 'SiteHeroTitle', sv?: string | null, en?: string | null } | null, intro?: { __typename: 'SiteHeroIntro', sv?: string | null, en?: string | null } | null } | null, sections?: { __typename: 'SiteSections', food?: { __typename: 'SiteSectionsFood', eyebrow?: { __typename: 'SiteSectionsFoodEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsFoodTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsFoodBody', sv?: string | null, en?: string | null } | null } | null, restaurant?: { __typename: 'SiteSectionsRestaurant', eyebrow?: { __typename: 'SiteSectionsRestaurantEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsRestaurantTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsRestaurantBody', sv?: string | null, en?: string | null } | null } | null, merch?: { __typename: 'SiteSectionsMerch', eyebrow?: { __typename: 'SiteSectionsMerchEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsMerchTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsMerchBody', sv?: string | null, en?: string | null } | null } | null, reservations?: { __typename: 'SiteSectionsReservations', eyebrow?: { __typename: 'SiteSectionsReservationsEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsReservationsTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsReservationsBody', sv?: string | null, en?: string | null } | null } | null, instagram?: { __typename: 'SiteSectionsInstagram', eyebrow?: { __typename: 'SiteSectionsInstagramEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsInstagramTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsInstagramBody', sv?: string | null, en?: string | null } | null } | null, footer?: { __typename: 'SiteSectionsFooter', eyebrow?: { __typename: 'SiteSectionsFooterEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsFooterTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsFooterBody', sv?: string | null, en?: string | null } | null } | null } | null } };
+export type SiteQuery = { __typename?: 'Query', site: { __typename: 'Site', id: string, instagramHandle?: string | null, adminEmail?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, contact?: { __typename: 'SiteContact', email?: string | null, phone?: string | null, address?: { __typename: 'SiteContactAddress', sv?: string | null, en?: string | null } | null, socials?: Array<{ __typename: 'SiteContactSocials', label?: string | null, url?: string | null } | null> | null } | null, navigation?: Array<{ __typename: 'SiteNavigation', key?: string | null, sv?: string | null, en?: string | null, href?: string | null } | null> | null, hero?: { __typename: 'SiteHero', images?: Array<string | null> | null, title?: { __typename: 'SiteHeroTitle', sv?: string | null, en?: string | null } | null, intro?: { __typename: 'SiteHeroIntro', sv?: string | null, en?: string | null } | null } | null, sections?: { __typename: 'SiteSections', about?: { __typename: 'SiteSectionsAbout', eyebrow?: { __typename: 'SiteSectionsAboutEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsAboutTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsAboutBody', sv?: string | null, en?: string | null } | null } | null, food?: { __typename: 'SiteSectionsFood', eyebrow?: { __typename: 'SiteSectionsFoodEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsFoodTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsFoodBody', sv?: string | null, en?: string | null } | null } | null, restaurant?: { __typename: 'SiteSectionsRestaurant', eyebrow?: { __typename: 'SiteSectionsRestaurantEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsRestaurantTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsRestaurantBody', sv?: string | null, en?: string | null } | null } | null, merch?: { __typename: 'SiteSectionsMerch', eyebrow?: { __typename: 'SiteSectionsMerchEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsMerchTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsMerchBody', sv?: string | null, en?: string | null } | null } | null, reservations?: { __typename: 'SiteSectionsReservations', eyebrow?: { __typename: 'SiteSectionsReservationsEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsReservationsTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsReservationsBody', sv?: string | null, en?: string | null } | null } | null, instagram?: { __typename: 'SiteSectionsInstagram', eyebrow?: { __typename: 'SiteSectionsInstagramEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsInstagramTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsInstagramBody', sv?: string | null, en?: string | null } | null } | null, footer?: { __typename: 'SiteSectionsFooter', eyebrow?: { __typename: 'SiteSectionsFooterEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsFooterTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsFooterBody', sv?: string | null, en?: string | null } | null } | null } | null, history?: { __typename: 'SiteHistory', eyebrow?: { __typename: 'SiteHistoryEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteHistoryTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteHistoryBody', sv?: string | null, en?: string | null } | null, drawerText?: { __typename: 'SiteHistoryDrawerText', sv?: string | null, en?: string | null } | null, images?: Array<{ __typename: 'SiteHistoryImages', src?: string | null, credit?: string | null, caption?: { __typename: 'SiteHistoryImagesCaption', sv?: string | null, en?: string | null } | null } | null> | null } | null } };
 
 export type SiteConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -1187,7 +1384,7 @@ export type SiteConnectionQueryVariables = Exact<{
 }>;
 
 
-export type SiteConnectionQuery = { __typename?: 'Query', siteConnection: { __typename?: 'SiteConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'SiteConnectionEdges', cursor: string, node?: { __typename: 'Site', id: string, instagramHandle?: string | null, adminEmail?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, contact?: { __typename: 'SiteContact', email?: string | null, phone?: string | null, address?: { __typename: 'SiteContactAddress', sv?: string | null, en?: string | null } | null, socials?: Array<{ __typename: 'SiteContactSocials', label?: string | null, url?: string | null } | null> | null } | null, navigation?: Array<{ __typename: 'SiteNavigation', key?: string | null, sv?: string | null, en?: string | null, href?: string | null } | null> | null, hero?: { __typename: 'SiteHero', images?: Array<string | null> | null, title?: { __typename: 'SiteHeroTitle', sv?: string | null, en?: string | null } | null, intro?: { __typename: 'SiteHeroIntro', sv?: string | null, en?: string | null } | null } | null, sections?: { __typename: 'SiteSections', food?: { __typename: 'SiteSectionsFood', eyebrow?: { __typename: 'SiteSectionsFoodEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsFoodTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsFoodBody', sv?: string | null, en?: string | null } | null } | null, restaurant?: { __typename: 'SiteSectionsRestaurant', eyebrow?: { __typename: 'SiteSectionsRestaurantEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsRestaurantTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsRestaurantBody', sv?: string | null, en?: string | null } | null } | null, merch?: { __typename: 'SiteSectionsMerch', eyebrow?: { __typename: 'SiteSectionsMerchEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsMerchTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsMerchBody', sv?: string | null, en?: string | null } | null } | null, reservations?: { __typename: 'SiteSectionsReservations', eyebrow?: { __typename: 'SiteSectionsReservationsEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsReservationsTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsReservationsBody', sv?: string | null, en?: string | null } | null } | null, instagram?: { __typename: 'SiteSectionsInstagram', eyebrow?: { __typename: 'SiteSectionsInstagramEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsInstagramTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsInstagramBody', sv?: string | null, en?: string | null } | null } | null, footer?: { __typename: 'SiteSectionsFooter', eyebrow?: { __typename: 'SiteSectionsFooterEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsFooterTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsFooterBody', sv?: string | null, en?: string | null } | null } | null } | null } | null } | null> | null } };
+export type SiteConnectionQuery = { __typename?: 'Query', siteConnection: { __typename?: 'SiteConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'SiteConnectionEdges', cursor: string, node?: { __typename: 'Site', id: string, instagramHandle?: string | null, adminEmail?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, contact?: { __typename: 'SiteContact', email?: string | null, phone?: string | null, address?: { __typename: 'SiteContactAddress', sv?: string | null, en?: string | null } | null, socials?: Array<{ __typename: 'SiteContactSocials', label?: string | null, url?: string | null } | null> | null } | null, navigation?: Array<{ __typename: 'SiteNavigation', key?: string | null, sv?: string | null, en?: string | null, href?: string | null } | null> | null, hero?: { __typename: 'SiteHero', images?: Array<string | null> | null, title?: { __typename: 'SiteHeroTitle', sv?: string | null, en?: string | null } | null, intro?: { __typename: 'SiteHeroIntro', sv?: string | null, en?: string | null } | null } | null, sections?: { __typename: 'SiteSections', about?: { __typename: 'SiteSectionsAbout', eyebrow?: { __typename: 'SiteSectionsAboutEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsAboutTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsAboutBody', sv?: string | null, en?: string | null } | null } | null, food?: { __typename: 'SiteSectionsFood', eyebrow?: { __typename: 'SiteSectionsFoodEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsFoodTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsFoodBody', sv?: string | null, en?: string | null } | null } | null, restaurant?: { __typename: 'SiteSectionsRestaurant', eyebrow?: { __typename: 'SiteSectionsRestaurantEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsRestaurantTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsRestaurantBody', sv?: string | null, en?: string | null } | null } | null, merch?: { __typename: 'SiteSectionsMerch', eyebrow?: { __typename: 'SiteSectionsMerchEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsMerchTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsMerchBody', sv?: string | null, en?: string | null } | null } | null, reservations?: { __typename: 'SiteSectionsReservations', eyebrow?: { __typename: 'SiteSectionsReservationsEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsReservationsTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsReservationsBody', sv?: string | null, en?: string | null } | null } | null, instagram?: { __typename: 'SiteSectionsInstagram', eyebrow?: { __typename: 'SiteSectionsInstagramEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsInstagramTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsInstagramBody', sv?: string | null, en?: string | null } | null } | null, footer?: { __typename: 'SiteSectionsFooter', eyebrow?: { __typename: 'SiteSectionsFooterEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteSectionsFooterTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteSectionsFooterBody', sv?: string | null, en?: string | null } | null } | null } | null, history?: { __typename: 'SiteHistory', eyebrow?: { __typename: 'SiteHistoryEyebrow', sv?: string | null, en?: string | null } | null, title?: { __typename: 'SiteHistoryTitle', sv?: string | null, en?: string | null } | null, body?: { __typename: 'SiteHistoryBody', sv?: string | null, en?: string | null } | null, drawerText?: { __typename: 'SiteHistoryDrawerText', sv?: string | null, en?: string | null } | null, images?: Array<{ __typename: 'SiteHistoryImages', src?: string | null, credit?: string | null, caption?: { __typename: 'SiteHistoryImagesCaption', sv?: string | null, en?: string | null } | null } | null> | null } | null } | null } | null> | null } };
 
 export type MenusQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -1289,6 +1486,24 @@ export const SitePartsFragmentDoc = gql`
   }
   sections {
     __typename
+    about {
+      __typename
+      eyebrow {
+        __typename
+        sv
+        en
+      }
+      title {
+        __typename
+        sv
+        en
+      }
+      body {
+        __typename
+        sv
+        en
+      }
+    }
     food {
       __typename
       eyebrow {
@@ -1396,6 +1611,39 @@ export const SitePartsFragmentDoc = gql`
         sv
         en
       }
+    }
+  }
+  history {
+    __typename
+    eyebrow {
+      __typename
+      sv
+      en
+    }
+    title {
+      __typename
+      sv
+      en
+    }
+    body {
+      __typename
+      sv
+      en
+    }
+    drawerText {
+      __typename
+      sv
+      en
+    }
+    images {
+      __typename
+      src
+      caption {
+        __typename
+        sv
+        en
+      }
+      credit
     }
   }
 }

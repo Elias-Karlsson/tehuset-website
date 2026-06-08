@@ -1,5 +1,5 @@
  'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type MouseEvent } from 'react';
 import type { Lang, MenuContent, Product, SiteContent } from './types';
 import { LanguageToggle } from './LanguageToggle';
 import { MenuPanel } from './MenuPanel';
@@ -147,10 +147,75 @@ function WeatherGraphic({ kind }: { kind: WeatherKind }) {
   return <span className={`weather-graphic weather-graphic--${kind}`} aria-hidden="true" />;
 }
 
+function HistoryBlueprint() {
+  return (
+    <svg className="history-drawer__blueprint" viewBox="0 0 640 360" role="img" aria-label="Blueprint line art of Tehuset by Kungsträdgården">
+      <path d="M78 272 C138 220 175 170 210 92" />
+      <path d="M564 86 C487 132 418 176 360 250" />
+      <path d="M116 284 C206 230 301 208 414 222 C470 229 520 246 566 280" />
+      <path d="M143 92 H500 V248 H143 Z" />
+      <path d="M182 122 H462 V215 H182 Z" />
+      <path d="M214 151 H278 V215" />
+      <path d="M318 122 V215" />
+      <path d="M360 151 H430 V215" />
+      <path d="M124 248 H520" />
+      <circle cx="244" cy="88" r="26" />
+      <circle cx="424" cy="88" r="24" />
+      <circle cx="98" cy="262" r="18" />
+      <circle cx="548" cy="270" r="18" />
+      <path d="M296 272 H344" />
+      <path d="M320 248 V296" />
+      <path d="M293 295 H347" />
+      <path d="M68 318 H576" />
+      <path d="M84 318 V332 M140 318 V332 M196 318 V332 M252 318 V332 M308 318 V332 M364 318 V332 M420 318 V332 M476 318 V332 M532 318 V332" />
+    </svg>
+  );
+}
+
+function HistoryDrawer({ open, onClose, title, text, closeLabel }: { open: boolean; onClose: () => void; title: string; text: string; closeLabel: string }) {
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    if (!open) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose();
+    };
+
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', handleKeyDown);
+    closeButtonRef.current?.focus();
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [open, onClose]);
+
+  return (
+    <div className={`history-drawer${open ? ' history-drawer--open' : ''}`} aria-hidden={!open}>
+      <button className="history-drawer__backdrop" type="button" onClick={onClose} aria-label={closeLabel} tabIndex={open ? 0 : -1} />
+      <aside id="history-drawer" className="history-drawer__panel" role="dialog" aria-modal={open} aria-labelledby="history-drawer-title" aria-describedby="history-drawer-text">
+        <button ref={closeButtonRef} className="history-drawer__close" type="button" onClick={onClose} aria-label={closeLabel} tabIndex={open ? 0 : -1}>×</button>
+        <div className="history-drawer__art" aria-hidden="true">
+          <HistoryBlueprint />
+        </div>
+        <div className="history-drawer__copy">
+          <p className="history-drawer__eyebrow">Tehuset archive</p>
+          <h2 id="history-drawer-title">{title}</h2>
+          <p id="history-drawer-text">{text}</p>
+        </div>
+      </aside>
+    </div>
+  );
+}
+
 export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteContent; photos: { food: string[]; restaurant: string[] }; menuSv: MenuContent; menuEn: MenuContent; products: Product[] }) {
   const [lang, setLang] = useState<Lang>('en');
   const [weather, setWeather] = useState('weather loading');
   const [weatherKind, setWeatherKind] = useState<WeatherKind>('cloud');
+  const [isHistoryDrawerOpen, setIsHistoryDrawerOpen] = useState(false);
   const menu = lang === 'sv' ? menuSv : menuEn;
   const ui = {
     sv: {
@@ -178,6 +243,7 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
       siteBy: 'Sida av Cadree',
       weatherFallback: 'aktuellt väder',
       weatherLoading: 'väder hämtas',
+      historyDrawerClose: 'Stäng historia',
     },
     en: {
       primaryNav: 'Primary navigation',
@@ -204,8 +270,10 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
       siteBy: 'Site by Cadree',
       weatherFallback: 'current weather',
       weatherLoading: 'weather loading',
+      historyDrawerClose: 'Close history',
     },
   }[lang];
+  const historyDrawerText = site.history?.drawerText?.[lang] ?? site.history?.body?.[lang] ?? ui.historyCopy;
 
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -280,14 +348,22 @@ export function TehusetHome({ site, menuSv, menuEn, products }: { site: SiteCont
     return () => { cancelled = true; };
   }, [lang, ui.weatherFallback, ui.weatherLoading]);
 
+  const openHistoryDrawer = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    setIsHistoryDrawerOpen(true);
+  };
+
+  const closeHistoryDrawer = () => setIsHistoryDrawerOpen(false);
+
   return (
     <main>
       <section className="hero monte-hero" id="top">
         <nav className="hero__nav" aria-label={ui.primaryNav}>
           <a href="#contact">{ui.contact}</a>
           <a href="#about">{ui.about}</a>
-          <a href="#history">{ui.history}</a>
+          <a href="#history" onClick={openHistoryDrawer} aria-controls="history-drawer" aria-expanded={isHistoryDrawerOpen} aria-haspopup="dialog">{ui.history}</a>
         </nav>
+        <HistoryDrawer open={isHistoryDrawerOpen} onClose={closeHistoryDrawer} title={ui.history} text={historyDrawerText} closeLabel={ui.historyDrawerClose} />
         <div className="hero__language">
           <LanguageToggle lang={lang} setLang={setLang} />
         </div>

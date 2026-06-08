@@ -48,6 +48,24 @@ export const SitePartsFragmentDoc = gql`
   }
   sections {
     __typename
+    about {
+      __typename
+      eyebrow {
+        __typename
+        sv
+        en
+      }
+      title {
+        __typename
+        sv
+        en
+      }
+      body {
+        __typename
+        sv
+        en
+      }
+    }
     food {
       __typename
       eyebrow {
@@ -155,6 +173,39 @@ export const SitePartsFragmentDoc = gql`
         sv
         en
       }
+    }
+  }
+  history {
+    __typename
+    eyebrow {
+      __typename
+      sv
+      en
+    }
+    title {
+      __typename
+      sv
+      en
+    }
+    body {
+      __typename
+      sv
+      en
+    }
+    drawerText {
+      __typename
+      sv
+      en
+    }
+    images {
+      __typename
+      src
+      caption {
+        __typename
+        sv
+        en
+      }
+      credit
     }
   }
 }

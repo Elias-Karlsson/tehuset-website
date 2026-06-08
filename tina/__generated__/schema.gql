@@ -136,6 +136,27 @@ type SiteHero {
   images: [String]
 }
 
+type SiteSectionsAboutEyebrow {
+  sv: String
+  en: String
+}
+
+type SiteSectionsAboutTitle {
+  sv: String
+  en: String
+}
+
+type SiteSectionsAboutBody {
+  sv: String
+  en: String
+}
+
+type SiteSectionsAbout {
+  eyebrow: SiteSectionsAboutEyebrow
+  title: SiteSectionsAboutTitle
+  body: SiteSectionsAboutBody
+}
+
 type SiteSectionsFoodEyebrow {
   sv: String
   en: String
@@ -263,12 +284,52 @@ type SiteSectionsFooter {
 }
 
 type SiteSections {
+  about: SiteSectionsAbout
   food: SiteSectionsFood
   restaurant: SiteSectionsRestaurant
   merch: SiteSectionsMerch
   reservations: SiteSectionsReservations
   instagram: SiteSectionsInstagram
   footer: SiteSectionsFooter
+}
+
+type SiteHistoryEyebrow {
+  sv: String
+  en: String
+}
+
+type SiteHistoryTitle {
+  sv: String
+  en: String
+}
+
+type SiteHistoryBody {
+  sv: String
+  en: String
+}
+
+type SiteHistoryDrawerText {
+  sv: String
+  en: String
+}
+
+type SiteHistoryImagesCaption {
+  sv: String
+  en: String
+}
+
+type SiteHistoryImages {
+  src: String
+  caption: SiteHistoryImagesCaption
+  credit: String
+}
+
+type SiteHistory {
+  eyebrow: SiteHistoryEyebrow
+  title: SiteHistoryTitle
+  body: SiteHistoryBody
+  drawerText: SiteHistoryDrawerText
+  images: [SiteHistoryImages]
 }
 
 type Site implements Node & Document {
@@ -278,6 +339,7 @@ type Site implements Node & Document {
   navigation: [SiteNavigation]
   hero: SiteHero
   sections: SiteSections
+  history: SiteHistory
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
@@ -335,6 +397,27 @@ input SiteHeroFilter {
   title: SiteHeroTitleFilter
   intro: SiteHeroIntroFilter
   images: ImageFilter
+}
+
+input SiteSectionsAboutEyebrowFilter {
+  sv: StringFilter
+  en: StringFilter
+}
+
+input SiteSectionsAboutTitleFilter {
+  sv: StringFilter
+  en: StringFilter
+}
+
+input SiteSectionsAboutBodyFilter {
+  sv: StringFilter
+  en: StringFilter
+}
+
+input SiteSectionsAboutFilter {
+  eyebrow: SiteSectionsAboutEyebrowFilter
+  title: SiteSectionsAboutTitleFilter
+  body: SiteSectionsAboutBodyFilter
 }
 
 input SiteSectionsFoodEyebrowFilter {
@@ -464,12 +547,52 @@ input SiteSectionsFooterFilter {
 }
 
 input SiteSectionsFilter {
+  about: SiteSectionsAboutFilter
   food: SiteSectionsFoodFilter
   restaurant: SiteSectionsRestaurantFilter
   merch: SiteSectionsMerchFilter
   reservations: SiteSectionsReservationsFilter
   instagram: SiteSectionsInstagramFilter
   footer: SiteSectionsFooterFilter
+}
+
+input SiteHistoryEyebrowFilter {
+  sv: StringFilter
+  en: StringFilter
+}
+
+input SiteHistoryTitleFilter {
+  sv: StringFilter
+  en: StringFilter
+}
+
+input SiteHistoryBodyFilter {
+  sv: StringFilter
+  en: StringFilter
+}
+
+input SiteHistoryDrawerTextFilter {
+  sv: StringFilter
+  en: StringFilter
+}
+
+input SiteHistoryImagesCaptionFilter {
+  sv: StringFilter
+  en: StringFilter
+}
+
+input SiteHistoryImagesFilter {
+  src: ImageFilter
+  caption: SiteHistoryImagesCaptionFilter
+  credit: StringFilter
+}
+
+input SiteHistoryFilter {
+  eyebrow: SiteHistoryEyebrowFilter
+  title: SiteHistoryTitleFilter
+  body: SiteHistoryBodyFilter
+  drawerText: SiteHistoryDrawerTextFilter
+  images: SiteHistoryImagesFilter
 }
 
 input SiteFilter {
@@ -479,6 +602,7 @@ input SiteFilter {
   navigation: SiteNavigationFilter
   hero: SiteHeroFilter
   sections: SiteSectionsFilter
+  history: SiteHistoryFilter
 }
 
 type SiteConnectionEdges {
@@ -716,6 +840,27 @@ input SiteHeroMutation {
   images: [String]
 }
 
+input SiteSectionsAboutEyebrowMutation {
+  sv: String
+  en: String
+}
+
+input SiteSectionsAboutTitleMutation {
+  sv: String
+  en: String
+}
+
+input SiteSectionsAboutBodyMutation {
+  sv: String
+  en: String
+}
+
+input SiteSectionsAboutMutation {
+  eyebrow: SiteSectionsAboutEyebrowMutation
+  title: SiteSectionsAboutTitleMutation
+  body: SiteSectionsAboutBodyMutation
+}
+
 input SiteSectionsFoodEyebrowMutation {
   sv: String
   en: String
@@ -843,12 +988,52 @@ input SiteSectionsFooterMutation {
 }
 
 input SiteSectionsMutation {
+  about: SiteSectionsAboutMutation
   food: SiteSectionsFoodMutation
   restaurant: SiteSectionsRestaurantMutation
   merch: SiteSectionsMerchMutation
   reservations: SiteSectionsReservationsMutation
   instagram: SiteSectionsInstagramMutation
   footer: SiteSectionsFooterMutation
+}
+
+input SiteHistoryEyebrowMutation {
+  sv: String
+  en: String
+}
+
+input SiteHistoryTitleMutation {
+  sv: String
+  en: String
+}
+
+input SiteHistoryBodyMutation {
+  sv: String
+  en: String
+}
+
+input SiteHistoryDrawerTextMutation {
+  sv: String
+  en: String
+}
+
+input SiteHistoryImagesCaptionMutation {
+  sv: String
+  en: String
+}
+
+input SiteHistoryImagesMutation {
+  src: String
+  caption: SiteHistoryImagesCaptionMutation
+  credit: String
+}
+
+input SiteHistoryMutation {
+  eyebrow: SiteHistoryEyebrowMutation
+  title: SiteHistoryTitleMutation
+  body: SiteHistoryBodyMutation
+  drawerText: SiteHistoryDrawerTextMutation
+  images: [SiteHistoryImagesMutation]
 }
 
 input SiteMutation {
@@ -858,6 +1043,7 @@ input SiteMutation {
   navigation: [SiteNavigationMutation]
   hero: SiteHeroMutation
   sections: SiteSectionsMutation
+  history: SiteHistoryMutation
 }
 
 input MenusGroupsItemsMutation {
